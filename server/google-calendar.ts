@@ -54,17 +54,23 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<boolean>
 
     const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
 
+    // Format the date as an ISO string but replace the 'Z' with the target timezone
+    // to ensure Google Calendar interprets it correctly as local time
+    const formatDateTime = (date: Date) => {
+      return date.toISOString().replace('Z', '');
+    };
+
     const response = await cal.events.insert({
       calendarId,
       requestBody: {
         summary: event.title,
         description: event.description,
         start: {
-          dateTime: event.startTime.toISOString(),
+          dateTime: formatDateTime(event.startTime),
           timeZone,
         },
         end: {
-          dateTime: event.endTime.toISOString(),
+          dateTime: formatDateTime(event.endTime),
           timeZone,
         },
         // Remove attendees as service accounts cannot invite without domain-wide delegation

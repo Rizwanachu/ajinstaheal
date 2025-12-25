@@ -356,11 +356,12 @@ export async function registerRoutes(
       // 3. Add to Google Calendar (if configured)
       try {
         const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
-        const startStr = `${input.date}T${input.time}:00`;
         
-        // Use a safe way to create date in specific timezone if possible, 
-        // or ensure the Date object represents the correct local time
-        const startDateTime = new Date(startStr);
+        // Construct the date string in the local format for the timezone
+        // This ensures the Date constructor treats it as local time in the server's environment
+        // then we convert it to an ISO string for Google Calendar API
+        const localDateTimeStr = `${input.date}T${input.time}:00`;
+        const startDateTime = new Date(localDateTimeStr);
         const endDateTime = new Date(startDateTime.getTime() + (service?.duration || 60) * 60000);
 
         await addEventToCalendar({
@@ -370,7 +371,12 @@ export async function registerRoutes(
           endTime: endDateTime,
           attendeeEmail: input.customerEmail,
         });
-        console.log(`✅ Event added to Google Calendar: ${startDateTime.toISOString()} in ${timeZone}`);
+        
+        // Log the exact payload for debugging
+        console.log(`✅ Event added to Google Calendar:`);
+        console.log(`   Local Time: ${input.date} ${input.time}`);
+        console.log(`   ISO String (UTC): ${startDateTime.toISOString()}`);
+        console.log(`   Target Timezone: ${timeZone}`);
       } catch (calErr) {
         console.error("❌ Google Calendar error (non-fatal):", calErr);
       }
