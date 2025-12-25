@@ -1,4 +1,4 @@
-modules = ["nodejs-20"]
+modules = ["nodejs-20", "web"]
 [nix]
 channel = "stable-25_05"
 packages = ["unzip"]
@@ -16,10 +16,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Development Server"
+args = "Start application"
 
 [[workflows.workflow]]
-name = "Development Server"
+name = "Start application"
 author = "agent"
 
 [[workflows.workflow.tasks]]
@@ -36,7 +36,8 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["npm", "start"]
+run = ["node", "./dist/index.cjs"]
+build = ["npm", "run", "build"]
 
 [userenv]
 
