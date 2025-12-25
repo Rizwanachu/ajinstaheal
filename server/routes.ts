@@ -427,15 +427,14 @@ export async function registerRoutes(
   });
 
   // Cancel booking
-  app.patch(api.bookings.cancel.path, async (req, res) => {
+  app.patch("/api/bookings/:id/cancel", async (req, res) => {
     try {
-      const token = req.headers["x-doctor-token"] as string;
-      if (!token || !(await isValidDoctorToken(token))) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-
       const { id } = req.params;
       const { email } = req.body;
+
+      if (!email) {
+        return res.status(400).json({ message: "Email required" });
+      }
 
       const booking = await storage.cancelBooking(Number(id), email);
       if (!booking) {
@@ -508,20 +507,20 @@ export async function registerRoutes(
 
       res.json(booking);
     } catch (err) {
+      console.error("Cancel error:", err);
       res.status(500).json({ message: "Failed to cancel booking" });
     }
   });
 
   // Reschedule booking
-  app.patch(api.bookings.reschedule.path, async (req, res) => {
+  app.patch("/api/bookings/:id/reschedule", async (req, res) => {
     try {
-      const token = req.headers["x-doctor-token"] as string;
-      if (!token || !(await isValidDoctorToken(token))) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-
       const { id } = req.params;
       const { email, newDate, newTime } = req.body;
+
+      if (!email || !newDate || !newTime) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
 
       // Verify new slot isn't taken
       const existingBookings = await storage.getBookingsByDate(newDate);
@@ -597,6 +596,7 @@ export async function registerRoutes(
 
       res.json(booking);
     } catch (err) {
+      console.error("Reschedule error:", err);
       res.status(500).json({ message: "Failed to reschedule booking" });
     }
   });
