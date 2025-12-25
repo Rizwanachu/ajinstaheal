@@ -61,7 +61,7 @@ export default function AdminBookings() {
     try {
       const token = localStorage.getItem("doctorToken");
       const res = await fetch(api.bookings.list.path, {
-        headers: { "X-Doctor-Token": token || "" },
+        headers: { "x-doctor-token": token || "" },
       });
       if (res.ok) {
         const data = await res.json();
@@ -80,7 +80,7 @@ export default function AdminBookings() {
     try {
       const token = localStorage.getItem("doctorToken");
       const res = await fetch("/api/admin/blocked-dates", {
-        headers: { "X-Doctor-Token": token || "" },
+        headers: { "x-doctor-token": token || "" },
       });
       if (res.ok) {
         const data = await res.json();
@@ -106,7 +106,7 @@ export default function AdminBookings() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Doctor-Token": token || "",
+          "x-doctor-token": token || "",
         },
         body: JSON.stringify({
           date: newBlock.date,
@@ -135,7 +135,7 @@ export default function AdminBookings() {
       const token = localStorage.getItem("doctorToken");
       const res = await fetch(`/api/admin/blocked-dates/${id}`, {
         method: "DELETE",
-        headers: { "X-Doctor-Token": token || "" },
+        headers: { "x-doctor-token": token || "" },
       });
 
       if (res.ok) {
@@ -160,7 +160,7 @@ export default function AdminBookings() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "X-Doctor-Token": token || "",
+          "x-doctor-token": token || "",
         },
         body: JSON.stringify({ email: customerEmail }),
       });
@@ -182,7 +182,7 @@ export default function AdminBookings() {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "X-Doctor-Token": token || "",
+          "x-doctor-token": token || "",
         },
         body: JSON.stringify({
           email: rescheduleDialog.booking.customerEmail,
@@ -220,7 +220,7 @@ export default function AdminBookings() {
       const token = localStorage.getItem("doctorToken");
       const url = `/api/admin/appointments-pdf?type=${type}`;
       const res = await fetch(url, {
-        headers: { "X-Doctor-Token": token || "" },
+        headers: { "x-doctor-token": token || "" },
       });
       if (!res.ok) throw new Error("Failed to download PDF");
       const blob = await res.blob();

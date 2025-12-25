@@ -1,10 +1,10 @@
 import { db } from "./db";
 import {
-  services, bookings, enquiries, blockedDates,
-  type Service, type Booking, type Enquiry, type BlockedDate,
-  type InsertService, type InsertBooking, type InsertEnquiry, type InsertBlockedDate
+  services, bookings, enquiries, blockedDates, doctorSessions,
+  type Service, type Booking, type Enquiry, type BlockedDate, type DoctorSession,
+  type InsertService, type InsertBooking, type InsertEnquiry, type InsertBlockedDate, type InsertDoctorSession
 } from "@shared/schema";
-import { eq, and, like } from "drizzle-orm";
+import { eq, and, like, lt } from "drizzle-orm";
 
 export interface IStorage {
   // Services
@@ -29,6 +29,12 @@ export interface IStorage {
   isTimeBlocked(date: string, time: string): Promise<boolean>;
   createBlockedDate(blocked: InsertBlockedDate): Promise<BlockedDate>;
   deleteBlockedDate(id: number): Promise<void>;
+  
+  // Doctor Sessions (for authentication)
+  createDoctorSession(token: string, expiresAt: Date): Promise<DoctorSession>;
+  getDoctorSession(token: string): Promise<DoctorSession | undefined>;
+  deleteDoctorSession(token: string): Promise<void>;
+  deleteExpiredSessions(): Promise<void>;
   
   // Seeding
   seedData(): Promise<void>;
@@ -153,6 +159,31 @@ export class DatabaseStorage implements IStorage {
         { name: "Cupping Therapy", duration: 30, description: "Traditional suction cup therapy for blood flow and relaxation.", price: "Contact for pricing" },
       ]);
     }
+  }
+
+  // Doctor Sessions (for Vercel-safe authentication)
+  async createDoctorSession(token: string, expiresAt: Date): Promise<DoctorSession> {
+    // Delete expired sessions first
+    await this.deleteExpiredSessions();
+    
+    const [session] = await db.insert(doctorSessions).values({ token, expiresAt }).returning();
+    return session;
+  }
+
+  async getDoctorSession(token: string): Promise<DoctorSession | undefined> {
+    // Delete expired sessions first
+    await this.deleteExpiredSessions();
+    
+    const [session] = await db.select().from(doctorSessions).where(eq(doctorSessions.token, token));
+    return session;
+  }
+
+  async deleteDoctorSession(token: string): Promise<void> {
+    await db.delete(doctorSessions).where(eq(doctorSessions.token, token));
+  }
+
+  async deleteExpiredSessions(): Promise<void> {
+    await db.delete(doctorSessions).where(lt(doctorSessions.expiresAt, new Date()));
   }
 }
 

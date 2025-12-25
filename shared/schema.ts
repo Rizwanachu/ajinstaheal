@@ -68,6 +68,18 @@ export const insertBlockedDateSchema = createInsertSchema(blockedDates).omit({ i
 export type BlockedDate = typeof blockedDates.$inferSelect;
 export type InsertBlockedDate = z.infer<typeof insertBlockedDateSchema>;
 
+// === DOCTOR SESSIONS (for Vercel compatibility) ===
+export const doctorSessions = pgTable("doctor_sessions", {
+  id: serial("id").primaryKey(),
+  token: text("token").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertDoctorSessionSchema = createInsertSchema(doctorSessions).omit({ id: true, createdAt: true });
+export type DoctorSession = typeof doctorSessions.$inferSelect;
+export type InsertDoctorSession = z.infer<typeof insertDoctorSessionSchema>;
+
 // === FORM TYPES ===
 export const bookingFormSchema = z.object({
   customerName: z.string().min(2, "Name must be at least 2 characters"),

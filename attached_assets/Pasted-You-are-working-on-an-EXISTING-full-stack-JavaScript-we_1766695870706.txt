@@ -1,0 +1,113 @@
+You are working on an EXISTING full-stack JavaScript web app that was imported from Replit and is already running locally.
+DO NOT rebuild the app from scratch.
+DO NOT change the UI unless required.
+DO NOT delete existing pages or features.
+
+GOAL:
+Make the app fully functional after deployment on Vercel using clean serverless architecture.
+
+CURRENT PROBLEMS TO FIX (DO NOT IGNORE):
+1. Emails do not send after deployment
+2. Doctor dashboard login rejects correct password
+3. Booking system does not work after deploy
+4. Services API fails (“Failed to load services”)
+5. Services not visible on homepage
+6. Data resets or disappears due to serverless behavior
+7. App works locally but breaks on Vercel
+8. Environment variables not read correctly in production
+
+MANDATORY ARCHITECTURAL RULES:
+- Assume deployment target is Vercel
+- Convert backend logic to Vercel-compatible serverless APIs
+- No long-running Express server
+- No in-memory storage for critical data
+- Every backend action must live in /api/*
+- APIs must be stateless and production-safe
+
+TASKS TO PERFORM STEP BY STEP:
+
+1️⃣ BACKEND REFACTOR (WITHOUT REBUILDING)
+- Keep existing logic but MOVE it into proper API routes:
+  /api/login
+  /api/book
+  /api/services
+  /api/appointments
+  /api/email
+  /api/doctor/availability
+  /api/doctor/cleanup
+  /api/doctor/export-pdf
+
+- Ensure all APIs:
+  - Use async/await
+  - Return proper JSON
+  - Handle errors safely
+  - Work in serverless environments
+
+2️⃣ DOCTOR LOGIN FIX
+- Use DOCTOR_PASSWORD from environment variables
+- Trim and safely compare password
+- Add clear error handling
+- Ensure password works identically in local + Vercel
+
+3️⃣ BOOKING SYSTEM FIX
+- Persist bookings using:
+  - Google Calendar (primary source of truth)
+- Prevent double booking
+- Respect doctor unavailable dates & times
+- Ensure bookings survive refresh & redeploy
+
+4️⃣ DOCTOR DASHBOARD FEATURES
+- Add ability to:
+  - Mark full days as leave
+  - Block specific time slots
+  - Clear completed appointments
+  - Download patient list as PDF
+- Ensure blocked dates/times are disabled for patients
+
+5️⃣ EMAIL SYSTEM (PRODUCTION SAFE)
+- Use Gmail SMTP via environment variables
+- Do NOT hardcode credentials
+- Ensure emails work on Vercel
+- Remove this line from ALL emails:
+  “If you have any questions, please contact us at contact@ajinstaheal.com”
+
+6️⃣ SERVICES API FIX
+- Ensure services load correctly:
+  - Homepage
+  - Services page
+- Fix API path mismatches
+- Ensure fetch URLs work in production
+
+7️⃣ FRONTEND ADJUSTMENTS (MINIMAL)
+- Update fetch URLs to:
+  - Relative paths (/api/...)
+- Add loading & error handling where missing
+- Do NOT redesign UI
+
+8️⃣ ENVIRONMENT VARIABLES
+Ensure app uses ONLY env vars for:
+- DOCTOR_PASSWORD
+- GOOGLE_CALENDAR_CREDENTIALS
+- GOOGLE_CALENDAR_ID
+- SMTP_HOST
+- SMTP_PORT
+- SMTP_USER
+- SMTP_PASS
+- SMTP_FROM
+- TIMEZONE
+
+No secrets should exist in code.
+
+9️⃣ DEPLOYMENT READINESS
+- App must work:
+  - Locally
+  - On Vercel without code changes
+- No reliance on Replit-specific behavior
+- No state stored in memory
+
+FINAL OUTPUT REQUIRED:
+- Updated working code (not a new project)
+- Clear explanation of what was fixed
+- Confirmation that the app is Vercel-ready
+
+If something is missing, FIX IT — do not ask questions unless absolutely blocked.

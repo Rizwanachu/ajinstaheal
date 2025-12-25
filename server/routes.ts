@@ -28,18 +28,10 @@ function generateBookingId(date: string): string {
   return `AJIH-${cleanDate}-${randomPart}`;
 }
 
-// In-memory token storage for doctor sessions
-const doctorTokens = new Map<string, { timestamp: number }>();
-
-function isValidDoctorToken(token: string): boolean {
-  const session = doctorTokens.get(token);
-  if (!session) return false;
-  // Token expires after 24 hours
-  if (Date.now() - session.timestamp > 24 * 60 * 60 * 1000) {
-    doctorTokens.delete(token);
-    return false;
-  }
-  return true;
+// Check if doctor token is valid using database
+async function isValidDoctorToken(token: string): Promise<boolean> {
+  const session = await storage.getDoctorSession(token);
+  return !!session && session.expiresAt > new Date();
 }
 
 export async function registerRoutes(
@@ -68,7 +60,8 @@ export async function registerRoutes(
       }
 
       const token = randomBytes(32).toString("hex");
-      doctorTokens.set(token, { timestamp: Date.now() });
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+      await storage.createDoctorSession(token, expiresAt);
       res.json({ token });
     } catch (err) {
       res.status(500).json({ message: "Authentication failed" });
@@ -81,7 +74,7 @@ export async function registerRoutes(
     try {
       const token = req.headers["x-doctor-token"] as string;
       
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -98,7 +91,7 @@ export async function registerRoutes(
     try {
       const token = req.headers["x-doctor-token"] as string;
       
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -114,7 +107,7 @@ export async function registerRoutes(
     try {
       const token = req.headers["x-doctor-token"] as string;
       
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -175,7 +168,7 @@ export async function registerRoutes(
     try {
       const token = req.headers["x-doctor-token"] as string;
       
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -423,7 +416,7 @@ export async function registerRoutes(
   app.patch(api.bookings.cancel.path, async (req, res) => {
     try {
       const token = req.headers["x-doctor-token"] as string;
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -509,7 +502,7 @@ export async function registerRoutes(
   app.patch(api.bookings.reschedule.path, async (req, res) => {
     try {
       const token = req.headers["x-doctor-token"] as string;
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -647,7 +640,7 @@ export async function registerRoutes(
   app.post("/api/admin/archive-appointment", async (req, res) => {
     try {
       const token = req.headers["x-doctor-token"] as string;
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
@@ -672,7 +665,7 @@ export async function registerRoutes(
   app.get("/api/admin/appointments-pdf", async (req, res) => {
     try {
       const token = req.headers["x-doctor-token"] as string;
-      if (!token || !isValidDoctorToken(token)) {
+      if (!token || !(await isValidDoctorToken(token))) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
