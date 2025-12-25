@@ -92,8 +92,6 @@ app.use((req, res, next) => {
     }
   });
 
-  export default app;
-
   // ALWAYS serve the app on the port specified in the environment variable PORT
   if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
     const port = parseInt(process.env.PORT || "5000", 10);
@@ -114,3 +112,5 @@ app.use((req, res, next) => {
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+export default app;
