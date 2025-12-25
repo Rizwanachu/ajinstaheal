@@ -70,7 +70,7 @@ function initializeTransporter() {
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   try {
     const provider = initializeTransporter();
-    const fromEmail = process.env.SMTP_FROM || "noreply@ajinstaheal.com";
+    const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER || "noreply@ajinstaheal.com";
 
     if (!provider) {
       // Development mode: log to console

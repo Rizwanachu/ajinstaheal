@@ -59,7 +59,8 @@ export async function registerRoutes(
         return res.status(500).json({ message: "Doctor password not configured" });
       }
 
-      if (password !== doctorPassword) {
+      if (password.trim() !== doctorPassword.trim()) {
+        console.log("Login failed: Password mismatch");
         return res.status(401).json({ message: "Invalid password" });
       }
 
