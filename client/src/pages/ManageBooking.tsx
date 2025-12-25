@@ -275,23 +275,28 @@ export default function ManageBooking() {
                     <div className="space-y-3">
                       <label className="text-sm text-muted-foreground">Select Time</label>
                       <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto">
-                        {availability?.slots.map((slot: string) => (
-                          <button
-                            key={slot}
-                            onClick={() => setRescheduledTime(slot)}
-                            className={`py-2 px-2 rounded-lg border text-sm font-medium transition-all ${
-                              rescheduledTime === slot
-                                ? "border-primary bg-primary text-black"
-                                : "border-white/10 hover:border-primary/50 text-white"
-                            }`}
-                          >
-                            {formatTimeDisplay(slot)}
-                          </button>
-                        ))}
+                        {availability && availability.slots && availability.slots.length > 0 ? (
+                          availability.slots.map((slot: string) => (
+                            <button
+                              key={slot}
+                              onClick={() => setRescheduledTime(slot)}
+                              className={`py-2 px-2 rounded-lg border text-sm font-medium transition-all ${
+                                rescheduledTime === slot
+                                  ? "border-primary bg-primary text-black"
+                                  : "border-white/10 hover:border-primary/50 text-white"
+                              }`}
+                            >
+                              {formatTimeDisplay(slot)}
+                            </button>
+                          ))
+                        ) : availability ? (
+                          <p className="text-sm text-muted-foreground text-center py-4">No available slots for this date.</p>
+                        ) : (
+                          <div className="flex justify-center py-4">
+                            <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                          </div>
+                        )}
                       </div>
-                      {availability?.slots.length === 0 && (
-                        <p className="text-sm text-muted-foreground text-center py-4">No available slots for this date.</p>
-                      )}
                     </div>
                   )}
 
