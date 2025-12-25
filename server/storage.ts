@@ -54,7 +54,7 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(bookings).orderBy(bookings.createdAt);
   }
 
-  async createBooking(booking: InsertBooking & { token: string; bookingId: string }): Promise<Booking> {
+  async createBooking(booking: InsertBooking & { token: string; bookingId: string; googleEventId?: string | null }): Promise<Booking> {
     const [newBooking] = await db.insert(bookings).values(booking).returning();
     return newBooking;
   }
@@ -85,10 +85,14 @@ export class DatabaseStorage implements IStorage {
   async rescheduleBooking(id: number, email: string, newDate: string, newTime: string): Promise<Booking | undefined> {
     const [updated] = await db
       .update(bookings)
-      .set({ date: newDate, time: newTime })
+      .set({ date: newDate, time: newTime, status: "confirmed" }) // Reset status to confirmed if it was something else
       .where(and(eq(bookings.id, id), eq(bookings.customerEmail, email)))
       .returning();
     return updated;
+  }
+
+  async updateBookingGoogleEventId(id: number, googleEventId: string): Promise<void> {
+    await db.update(bookings).set({ googleEventId }).where(eq(bookings.id, id));
   }
 
   async createEnquiry(enquiry: InsertEnquiry): Promise<Enquiry> {

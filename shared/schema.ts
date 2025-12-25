@@ -28,6 +28,7 @@ export const bookings = pgTable("bookings", {
   comments: text("comments"),
   status: text("status").default("confirmed"), // confirmed, cancelled, rescheduled
   token: text("token").notNull().unique(), // Secure token for manage-booking access
+  googleEventId: text("google_event_id"), // Store the Google Calendar event ID
   createdAt: timestamp("created_at").defaultNow(),
 });
 

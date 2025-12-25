@@ -42,16 +42,15 @@ function initializeCalendar() {
   }
 }
 
-export async function addEventToCalendar(event: CalendarEvent): Promise<boolean> {
+export async function addEventToCalendar(event: CalendarEvent): Promise<string | null> {
   try {
     const cal = initializeCalendar();
     if (!cal) {
       console.log("Google Calendar not configured - skipping event creation");
-      return false;
+      return null;
     }
 
     const calendarId = process.env.GOOGLE_CALENDAR_ID || "primary";
-
     const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
 
     // Format the date as an ISO string but replace the 'Z' with the target timezone
@@ -86,9 +85,49 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<boolean>
     });
 
     console.log("Event added to Google Calendar:", response.data.id);
-    return true;
+    return response.data.id || null;
   } catch (err) {
     console.error("Failed to add event to Google Calendar:", err);
+    return null;
+  }
+}
+
+export async function updateEventInCalendar(eventId: string, event: CalendarEvent): Promise<boolean> {
+  try {
+    const cal = initializeCalendar();
+    if (!cal) {
+      console.log("Google Calendar not configured - skipping event update");
+      return false;
+    }
+
+    const calendarId = process.env.GOOGLE_CALENDAR_ID || "primary";
+    const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
+
+    const formatDateTime = (date: Date) => {
+      return date.toISOString().replace('Z', '');
+    };
+
+    await cal.events.update({
+      calendarId,
+      eventId,
+      requestBody: {
+        summary: event.title,
+        description: event.description,
+        start: {
+          dateTime: formatDateTime(event.startTime),
+          timeZone,
+        },
+        end: {
+          dateTime: formatDateTime(event.endTime),
+          timeZone,
+        },
+      },
+    });
+
+    console.log("Event updated in Google Calendar:", eventId);
+    return true;
+  } catch (err) {
+    console.error("Failed to update event in Google Calendar:", err);
     return false;
   }
 }

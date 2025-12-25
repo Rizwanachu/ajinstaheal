@@ -364,16 +364,21 @@ export async function registerRoutes(
         const startDateTime = new Date(localDateTimeStr);
         const endDateTime = new Date(startDateTime.getTime() + (service?.duration || 60) * 60000);
 
-        await addEventToCalendar({
+        const googleEventId = await addEventToCalendar({
           title: `${input.customerName} - ${service?.name || 'Appointment'}`,
           description: `Customer: ${input.customerName}\nEmail: ${input.customerEmail}\nPhone: ${input.customerPhone}${input.comments ? '\nComments: ' + input.comments : ''}`,
           startTime: startDateTime,
           endTime: endDateTime,
           attendeeEmail: input.customerEmail,
         });
+
+        if (googleEventId) {
+          await storage.updateBookingGoogleEventId(booking.id, googleEventId);
+          console.log(`✅ Event added to Google Calendar: ${googleEventId}`);
+        }
         
         // Log the exact payload for debugging
-        console.log(`✅ Event added to Google Calendar:`);
+        console.log(`✅ Event sync details:`);
         console.log(`   Local Time: ${input.date} ${input.time}`);
         console.log(`   ISO String (UTC): ${startDateTime.toISOString()}`);
         console.log(`   Target Timezone: ${timeZone}`);
@@ -439,6 +444,12 @@ export async function registerRoutes(
       const booking = await storage.cancelBooking(Number(id), email);
       if (!booking) {
         return res.status(404).json({ message: "Booking not found" });
+      }
+
+      // Sync with Google Calendar
+      if (booking.googleEventId) {
+        const { removeEventFromCalendar } = await import("./google-calendar");
+        await removeEventFromCalendar(booking.googleEventId);
       }
 
       // Send cancellation confirmation email
@@ -532,6 +543,24 @@ export async function registerRoutes(
       const booking = await storage.rescheduleBooking(Number(id), email, newDate, newTime);
       if (!booking) {
         return res.status(404).json({ message: "Booking not found" });
+      }
+
+      // Sync with Google Calendar
+      if (booking.googleEventId) {
+        const service = await storage.getService(booking.serviceId);
+        const { updateEventInCalendar } = await import("./google-calendar");
+        
+        const localDateTimeStr = `${newDate}T${newTime}:00`;
+        const startDateTime = new Date(localDateTimeStr);
+        const endDateTime = new Date(startDateTime.getTime() + (service?.duration || 60) * 60000);
+
+        await updateEventInCalendar(booking.googleEventId, {
+          title: `${booking.customerName} - ${service?.name || 'Appointment'}`,
+          description: `Customer: ${booking.customerName}\nEmail: ${booking.customerEmail}\nPhone: ${booking.customerPhone}${booking.comments ? '\nComments: ' + booking.comments : ''}`,
+          startTime: startDateTime,
+          endTime: endDateTime,
+          attendeeEmail: booking.customerEmail,
+        });
       }
 
       // Send reschedule confirmation email
