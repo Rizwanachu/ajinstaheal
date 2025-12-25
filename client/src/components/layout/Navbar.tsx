@@ -22,7 +22,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <img src="/logo.png" alt="AJ Insta Heal Logo" className="h-40 object-contain group-hover:scale-105 transition-transform duration-300 ml-[0px] mr-[0px] pl-[30px] pr-[30px] pt-[0px] pb-[0px] mt-[0px] mb-[0px]" />
+          <img src="/logo.png" alt="AJ Insta Heal Logo" className="h-40 object-contain group-hover:scale-105 transition-transform duration-300 ml-[0px] mr-[0px] pt-[0px] pb-[0px] mt-[0px] mb-[0px] pl-[15px] pr-[15px]" />
         </Link>
 
         {/* Desktop Nav */}
