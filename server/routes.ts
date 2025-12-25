@@ -355,14 +355,22 @@ export async function registerRoutes(
 
       // 3. Add to Google Calendar (if configured)
       try {
+        const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
+        const startStr = `${input.date}T${input.time}:00`;
+        
+        // Use a safe way to create date in specific timezone if possible, 
+        // or ensure the Date object represents the correct local time
+        const startDateTime = new Date(startStr);
+        const endDateTime = new Date(startDateTime.getTime() + (service?.duration || 60) * 60000);
+
         await addEventToCalendar({
           title: `${input.customerName} - ${service?.name || 'Appointment'}`,
           description: `Customer: ${input.customerName}\nEmail: ${input.customerEmail}\nPhone: ${input.customerPhone}${input.comments ? '\nComments: ' + input.comments : ''}`,
-          startTime: new Date(`${input.date}T${input.time}:00`),
-          endTime: new Date(new Date(`${input.date}T${input.time}:00`).getTime() + (service?.duration || 60) * 60000),
+          startTime: startDateTime,
+          endTime: endDateTime,
           attendeeEmail: input.customerEmail,
         });
-        console.log("✅ Event added to Google Calendar");
+        console.log(`✅ Event added to Google Calendar: ${startDateTime.toISOString()} in ${timeZone}`);
       } catch (calErr) {
         console.error("❌ Google Calendar error (non-fatal):", calErr);
       }

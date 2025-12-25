@@ -52,6 +52,8 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<boolean>
 
     const calendarId = process.env.GOOGLE_CALENDAR_ID || "primary";
 
+    const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
+
     const response = await cal.events.insert({
       calendarId,
       requestBody: {
@@ -59,11 +61,11 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<boolean>
         description: event.description,
         start: {
           dateTime: event.startTime.toISOString(),
-          timeZone: process.env.TIMEZONE || "UTC",
+          timeZone,
         },
         end: {
           dateTime: event.endTime.toISOString(),
-          timeZone: process.env.TIMEZONE || "UTC",
+          timeZone,
         },
         // Remove attendees as service accounts cannot invite without domain-wide delegation
         // attendees: event.attendeeEmail ? [{ email: event.attendeeEmail }] : undefined,
