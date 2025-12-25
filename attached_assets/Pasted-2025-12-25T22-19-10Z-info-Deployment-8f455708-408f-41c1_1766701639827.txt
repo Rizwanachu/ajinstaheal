@@ -1,0 +1,75 @@
+2025-12-25T22:19:10Z info: Deployment: 8f455708-408f-41c1-b5c8-fd4a1cb6e5b5
+2025-12-25T22:19:10Z info: Running Security Scan
+2025-12-25T22:19:17Z info: Security Scan Complete
+2025-12-25T22:19:17Z info: Preparing PostgreSQL 16 tools
+2025-12-25T22:19:20Z info: Preparing development database schema
+2025-12-25T22:19:23Z info: Successfully copied development database schema to production database
+2025-12-25T22:19:23Z info: Connecting to builder
+2025-12-25T22:19:23Z info: Builder connected
+2025-12-25T22:19:24Z info: Installing packages
+2025-12-25T22:19:24Z info: Starting Build
+
+> rest-express@1.0.0 build
+> vite build && tsx script/build.ts
+
+
+vite v7.3.0 building client environment for production...
+
+transforming...
+
+✓ 3032 modules transformed.
+
+rendering chunks...
+
+computing gzip size...
+
+../dist/public/index.html                   2.45 kB │ gzip:   0.88 kB
+
+✓ built in 12.38s
+
+building client...
+
+vite v7.3.0 building client environment for production...
+
+transforming...
+
+✓ 3032 modules transformed.
+
+rendering chunks...
+
+computing gzip size...
+
+../dist/public/index.html                   2.45 kB │ gzip:   0.88 kB
+
+building server...
+
+
+  dist/index.cjs  1.3mb ⚠️
+
+⚡ Done in 461ms
+
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
+
+2025-12-25T22:19:54Z info: Pushing pid1 binary layer...
+2025-12-25T22:19:54Z info: Pushing hosting layer...
+2025-12-25T22:19:54Z info: Pushing nix-0 layer...
+2025-12-25T22:19:55Z info: Created hosting layer
+2025-12-25T22:19:55Z info: Created pid1 binary layer
+2025-12-25T22:20:00Z info: Created nix-0 layer
+2025-12-25T22:20:00Z info: uploading image for cached layer
+2025-12-25T22:20:00Z info: pushed cache image manifest
+2025-12-25T22:20:01Z info: pushed cache soci index manifest
+2025-12-25T22:20:01Z info: successfully uploaded cached layer
+2025-12-25T22:20:17Z info: Created Repl layer
+2025-12-25T22:20:19Z info: Pushed image manifest
+2025-12-25T22:20:20Z info: Pushed soci index manifest
+2025-12-25T22:21:23Z info: Creating Autoscale service
+starting up user application
+forwarding local port 5000 to external port 80 (mapped as 1104)
+command finished successfully with exit code 0
+main done, exiting
+2025-12-25T22:23:30Z error: The deployment is failing health checks. This can happen if the application isn't responding, responds with an error, or doesn't respond in time. Health checks are sent to the / endpoint by default and must respond as soon as possible. Make sure that the / endpoint is implemented and returns a 200 status code in a timely manner. Avoid doing expensive or long running operations on the / endpoint, prefer deferring them to a different route. Check the logs for more information.
