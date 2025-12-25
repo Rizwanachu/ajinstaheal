@@ -35,10 +35,7 @@ export const api = {
       responses: {
         200: z.object({
           date: z.string(),
-          slots: z.array(z.object({
-            time: z.string(),
-            available: z.boolean(),
-          })),
+          slots: z.array(z.string()),
         }),
       },
     },

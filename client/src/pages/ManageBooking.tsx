@@ -275,7 +275,7 @@ export default function ManageBooking() {
                     <div className="space-y-3">
                       <label className="text-sm text-muted-foreground">Select Time</label>
                       <div className="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto">
-                        {availability?.slots.map((slot) => (
+                        {availability?.slots.map((slot: string) => (
                           <button
                             key={slot}
                             onClick={() => setRescheduledTime(slot)}
