@@ -1,0 +1,88 @@
+You are a senior Next.js developer.
+
+Fix and extend the existing AJ Insta Heal website with the following requirements.
+
+--------------------------------
+CRITICAL FIXES
+--------------------------------
+
+1. LOGO
+- Properly load the clinic logo from /public
+- Use Next.js Image component
+- Ensure logo appears in navbar and footer
+
+2. SOCIAL LINKS
+- Fix Instagram and Facebook links
+- Use correct external anchor tags
+- Open in new tab
+- Ensure links work on mobile and desktop
+
+Instagram:
+https://www.instagram.com/aj_instaheal_/
+
+Facebook:
+https://www.facebook.com/jinas.nazar.9/
+
+--------------------------------
+BOOKING SYSTEM FIX
+--------------------------------
+
+3. CONFIRM BOOKING BUTTON
+- Fix booking submission so it actually works
+- Ensure frontend calls backend API correctly
+- Show loading state when submitting
+- Show success confirmation message
+- Show clear error message if booking fails
+- Prevent double submission
+- Log API errors during development
+
+--------------------------------
+NEW FEATURE: CANCEL / RESCHEDULE
+--------------------------------
+
+4. ADD MANAGE BOOKING FEATURE (FREE)
+
+When a booking is created:
+- Generate a unique booking ID
+- Generate a secure token
+- Store both in Google Sheets
+
+Email sent to user must include:
+- Booking ID
+- "Cancel Appointment" link
+- "Reschedule Appointment" link
+
+Create a new page:
+/manage-booking
+
+Features:
+- User enters Booking ID + Email
+- Fetch booking from Google Sheets
+- Allow:
+  - Cancel booking (mark status as cancelled)
+  - Reschedule booking (pick new date & time)
+- Prevent cancelled bookings from showing as available slots
+
+--------------------------------
+UI / UX FIX
+--------------------------------
+
+5. SERVICE SECTION BUTTON HOVER
+- Fix "Book Now" hover state
+- Maintain high contrast
+- Gold background with black text on hover
+- Add subtle glow
+- Never reduce opacity
+
+--------------------------------
+CODE QUALITY
+--------------------------------
+
+- Do NOT rebuild the entire project
+- Modify existing components and API routes
+- Keep everything free
+- Clean, readable code
+- Add comments where logic is complex
+
+Do not ask questions.
+Apply all fixes and features directly.

@@ -1,0 +1,99 @@
+You are a senior full-stack developer.
+
+Extend the existing Doctor Dashboard of the appointment booking web app.
+DO NOT rebuild the app.
+DO NOT change the booking flow.
+Use the existing Google Calendar integration only.
+
+--------------------------------
+FEATURE 1: COMPLETED APPOINTMENTS MANAGEMENT
+--------------------------------
+
+Add a section in the Doctor Dashboard called:
+"Completed Appointments"
+
+Behavior:
+- Automatically detect appointments whose end time is in the past
+- These are considered "completed"
+
+Doctor actions:
+1. View completed appointments list
+   - Patient name
+   - Booking ID
+
+   - Email
+   - Phone
+   - Service
+   - Date & time
+
+2. Clear / Archive completed appointments
+   - Provide a "Clear Completed" button
+   - When clicked:
+     - Do NOT delete Google Calendar events
+     - Mark them internally as archived using:
+       - Event extendedProperties
+       - OR a specific event label like "[ARCHIVED]"
+   - Archived events must:
+     - Not appear in active appointment lists
+     - Still remain in Google Calendar for records
+
+--------------------------------
+FEATURE 2: DOWNLOAD PATIENT DETAILS AS PDF
+--------------------------------
+
+Add a button in Doctor Dashboard:
+"Download Appointments PDF"
+
+PDF requirements:
+- Generate a professional, clean PDF
+- Include:
+  - Clinic logo and name
+  - Report title: "Patient Appointments Report"
+  - Date generated
+- Each appointment entry should include:
+  - Patient name
+  - Booking ID
+
+  - Email
+  - Phone number
+  - Service
+  - Appointment date
+  - Appointment time
+  - Status (Upcoming / Completed)
+
+PDF options:
+- Download:
+  - All appointments
+  - OR completed appointments only
+- Use a server-side PDF generator (no paid APIs)
+- Ensure it works on Vercel deployment
+
+--------------------------------
+SECURITY & ACCESS
+--------------------------------
+
+- Only accessible inside Doctor Dashboard
+- Must require doctor authentication
+- No exposure to patients
+
+--------------------------------
+TECHNICAL RULES
+--------------------------------
+
+- Google Calendar remains the single source of truth
+- Do not introduce new databases
+- Do not use paid services
+- Clean, readable, commented code
+- Handle timezone correctly (Asia/Kolkata)
+
+--------------------------------
+EXPECTED RESULT
+--------------------------------
+
+Doctor can:
+- View completed appointments
+- Clear/archive them safely
+- Download patient data as a PDF anytime
+
+Implement all features directly.
+Do not ask questions.

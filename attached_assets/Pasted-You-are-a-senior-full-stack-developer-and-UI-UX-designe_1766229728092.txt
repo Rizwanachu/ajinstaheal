@@ -1,0 +1,147 @@
+You are a senior full-stack developer and UI/UX designer.
+
+Build a complete, production-ready website for an acupuncture clinic called:
+
+AJ INSTA HEAL – Acupuncture & Holistic Wellness Centre
+
+IMPORTANT CONSTRAINTS:
+- Everything must be 100% FREE (no paid APIs, no trials)
+- Must run on Replit free tier
+- Must be deployable on Vercel
+- Booking, enquiry, admin, emails, database must all be free
+- Use Google Sheets as the database
+- Use Next.js App Router
+- Use Tailwind CSS
+- Use serverless API routes only
+
+--------------------------------------------------
+DESIGN & THEME
+--------------------------------------------------
+Match the uploaded logo theme:
+- Background: deep black / charcoal
+- Accent: gold (#D4AF37 style)
+- Text: white and soft gray
+- Feel: premium, calm, holistic, spiritual, trustworthy
+- Rounded cards, subtle glow accents
+- Soft animations (fade, slide, hover glow)
+- Mobile-first, fully responsive
+
+Use elegant modern fonts (you decide).
+
+--------------------------------------------------
+PAGES (MANDATORY)
+--------------------------------------------------
+1. Home
+2. About AJ Insta Heal
+3. Services / Treatments
+4. Book Appointment
+5. Enquiry / Contact
+6. Testimonials
+7. FAQs
+8. Privacy Policy
+9. Terms & Conditions
+10. Medical Disclaimer
+
+Optional:
+- Blog / Articles (basic structure, no CMS)
+
+--------------------------------------------------
+CONTENT
+--------------------------------------------------
+Generate professional, SEO-friendly wellness content automatically.
+Tone: calm, reassuring, medical-ethical, holistic.
+No exaggerated medical claims.
+
+Clinic info:
+Location: Mattancherry, Ernakulam, Kerala
+Working hours:
+- Saturday: 4–6 pm
+- Sunday: 8–10 am
+- Monday–Friday: 4–6 pm
+(Custom holidays supported)
+
+Social links:
+Instagram: https://www.instagram.com/aj_instaheal_/
+Facebook: https://www.facebook.com/jinas.nazar.9/
+Threads: https://www.threads.net/@aj_insta_heal_
+
+--------------------------------------------------
+BOOKING SYSTEM (CORE FEATURE)
+--------------------------------------------------
+- Support multiple practitioners in future
+- Services have different durations (30 or 60 mins)
+- Booking flow:
+  Service → Date → Time Slot → Name, Phone, Email, Comments → Submit
+- Auto time-slot generation based on:
+  - Service duration
+  - Working hours
+  - Existing bookings
+- Prevent double bookings
+- Allow custom blocked dates & holidays
+- Store bookings in Google Sheets
+- Send:
+  - Email confirmation to client
+  - Email notification to admin
+- Use a free email solution (EmailJS or similar)
+- No login required for users
+
+--------------------------------------------------
+ENQUIRY / CONTACT
+--------------------------------------------------
+- Contact form (name, phone, email, message)
+- Send enquiry to admin email
+- Add WhatsApp click-to-chat floating button
+
+--------------------------------------------------
+ADMIN PANEL (FREE)
+--------------------------------------------------
+- Simple admin page with password protection
+- View bookings from Google Sheets
+- View enquiries
+- No paid dashboards
+
+--------------------------------------------------
+SEO & TRUST
+--------------------------------------------------
+- SEO meta tags for all pages
+- Local business schema
+- Google Maps embed
+- Accessible color contrast
+- Proper headings and alt text
+
+--------------------------------------------------
+TECH STACK
+--------------------------------------------------
+- Next.js (App Router)
+- Tailwind CSS
+- Google Sheets API (free)
+- Serverless API routes
+- No external paid UI kits
+- No Firebase
+- No Supabase
+- No Stripe
+- No paid schedulers
+
+--------------------------------------------------
+DEPLOYMENT
+--------------------------------------------------
+- Configure for Vercel deployment
+- Include clear instructions to deploy on Vercel
+- Use environment variables properly
+
+--------------------------------------------------
+OUTPUT EXPECTATION
+--------------------------------------------------
+Generate:
+- Full project structure
+- All pages and components
+- API routes
+- Booking logic
+- Google Sheets integration
+- Email sending logic
+- Admin protection logic
+- Clean, readable code
+- Comments where helpful
+
+Do NOT ask follow-up questions.
+Build the complete system end-to-end.

@@ -1,0 +1,94 @@
+You are a senior Next.js engineer.
+
+Fix the AJ Insta Heal booking system completely. Do NOT rebuild from scratch.
+
+---------------------------------
+DATE & TIME FIXES
+---------------------------------
+
+1. Disable booking for the current day.
+- Users can only book from tomorrow onward.
+- Enforce this both in UI and backend validation.
+
+2. Generate ALL available time slots dynamically.
+- Use clinic working hours.
+- Respect service duration (30 / 60 minutes).
+- Show time in 12-hour AM/PM format.
+- Do NOT hardcode time slots.
+- Ensure no overlapping bookings.
+
+---------------------------------
+CONFIRM BOOKING (CRITICAL)
+---------------------------------
+
+3. Fix the Confirm Booking button.
+- On click:
+  - Show loading spinner
+  - Disable button
+- Call backend API properly
+- Handle API response explicitly:
+  - Success → show confirmation screen
+  - Error → show error message
+
+No silent failures.
+
+---------------------------------
+BOOKING ID SYSTEM
+---------------------------------
+
+4. Generate a Booking ID on successful booking.
+- Format example: AJIH-YYYYMMDD-XXXX
+- Generate a secure token as well
+- Store both in Google Sheets
+
+5. After booking success:
+- Display Booking ID on screen
+- Tell user clearly to save it
+- Send Booking ID via email
+
+---------------------------------
+EMAIL CONFIRMATION
+---------------------------------
+
+6. Fix email sending.
+- Use a free email solution
+- Email must include:
+  - Booking ID
+  - Service name
+  - Date & time
+  - Manage Booking link
+
+---------------------------------
+MANAGE BOOKING FIX
+---------------------------------
+
+7. Fix Manage Booking page logic.
+- User enters Booking ID + Email
+- Fetch booking from Google Sheets
+- If found:
+  - Show booking details
+  - Allow Cancel
+  - Allow Reschedule
+- Update booking status in Google Sheets
+- Prevent cancelled slots from appearing again
+
+---------------------------------
+ERROR HANDLING
+---------------------------------
+
+8. Add visible error handling everywhere.
+- If Google Sheets fails → show error
+- If API fails → show error
+- Log errors in console for debugging
+
+---------------------------------
+CODE RULES
+---------------------------------
+
+- Keep everything 100% free
+- No paid services
+- Modify existing components and APIs
+- Clean, readable code
+- Add comments where logic is complex
+- Do not ask questions
+- Implement everything directly

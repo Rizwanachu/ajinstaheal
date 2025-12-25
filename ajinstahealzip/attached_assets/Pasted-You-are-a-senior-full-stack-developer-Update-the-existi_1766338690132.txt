@@ -1,0 +1,94 @@
+You are a senior full-stack developer.
+
+Update the existing appointment booking web app that uses Google Calendar as the backend.
+
+DO NOT rebuild from scratch.
+Modify and extend the current system only.
+
+--------------------------------
+DOCTOR DASHBOARD (AVAILABILITY CONTROL)
+--------------------------------
+
+Create a secure Doctor Dashboard with access limited to the doctor only.
+
+Features required:
+
+1. BLOCK FULL DAYS (LEAVE)
+- Doctor can select a specific date
+- Mark the entire day as unavailable (leave)
+- System creates an all-day "blocked" event in Google Calendar
+- That date must NOT appear as bookable to patients
+
+2. BLOCK SPECIFIC TIME RANGES
+- Doctor can select:
+  - Date
+  - Start time
+  - End time
+- Mark that time range as unavailable
+- Create a blocking event in Google Calendar
+- Patients must NOT see or select those time slots
+
+3. REAL-TIME EFFECT
+- Availability shown to patients must immediately reflect:
+  - Leaves
+  - Blocked times
+  - Existing bookings
+- All availability logic must be derived from Google Calendar only
+
+--------------------------------
+BOOKING AVAILABILITY RULES
+--------------------------------
+
+- Patient booking UI must:
+  - Hide blocked dates completely
+  - Hide blocked time slots
+  - Prevent selection via backend validation as well
+- No hardcoded unavailable dates or times
+
+--------------------------------
+EMAIL CONTENT FIX (IMPORTANT)
+--------------------------------
+
+Remove this sentence COMPLETELY from ALL outgoing emails:
+"If you have any questions, please contact us at contact@ajinstaheal.com"
+
+This includes:
+- Booking confirmation emails
+- Reschedule confirmation emails
+- Cancellation emails
+- Reminder emails
+
+Do not include any fallback contact email text.
+
+--------------------------------
+SECURITY & ACCESS
+--------------------------------
+
+- Doctor dashboard must NOT be publicly accessible
+- Protect it using:
+  - A simple password stored in environment variables
+  - OR a secret access key
+- Do NOT use paid authentication services
+- Do NOT expose credentials on the client
+
+--------------------------------
+CODE REQUIREMENTS
+--------------------------------
+
+- Use existing Google Calendar integration
+- Use Google Calendar events as the single source of truth
+- Use clear event naming (e.g. "BLOCKED – Leave" or "BLOCKED – Unavailable")
+- Clean, readable, commented code
+- No breaking changes to patient booking flow
+
+--------------------------------
+EXPECTED RESULT
+--------------------------------
+
+- Doctor can manage availability (days & times)
+- Patients cannot book blocked dates or times
+- Emails are clean and professional without unwanted text
+- System remains fully free and deployable on Vercel
+
+Implement all changes directly.
+Do not ask questions.
