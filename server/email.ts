@@ -73,22 +73,24 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
     const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER || "noreply@ajinstaheal.com";
 
     if (!provider) {
-      // Development mode: log to console
-      console.log("📧 Email (Development Mode):");
-      console.log(`To: ${options.to}`);
-      console.log(`Subject: ${options.subject}`);
-      console.log(`Preview: ${options.html.substring(0, 100)}...`);
+      console.warn("No email provider configured. Logging to console.");
+      console.log("📧 Email (Development Mode):", { to: options.to, subject: options.subject });
       return true;
     }
 
-    const result = await provider.sendMail({
+    const mailOptions = {
       from: fromEmail,
       to: options.to,
       subject: options.subject,
       html: options.html,
-    });
+    };
 
-    console.log(`✅ Email sent to ${options.to} (ID: ${result.messageId})`);
+    const result = await Promise.race([
+      provider.sendMail(mailOptions),
+      new Promise((_, reject) => setTimeout(() => reject(new Error("Email timeout")), 30000))
+    ]);
+
+    console.log(`✅ Email sent to ${options.to}`);
     return true;
   } catch (error) {
     console.error("❌ Failed to send email:", error);

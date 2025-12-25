@@ -1,0 +1,128 @@
+You are a senior full-stack engineer and deployment specialist.
+
+The AJ Insta Heal web app works in Replit preview but breaks after Vercel deployment.
+
+FIX ALL ISSUES BELOW WITHOUT ASKING QUESTIONS.
+
+--------------------------------
+ISSUES TO FIX
+--------------------------------
+
+1️⃣ EMAIL NOT SENDING AFTER DEPLOY
+- Gmail SMTP works locally but fails on Vercel
+
+2️⃣ DOCTOR LOGIN FAILS
+- Correct password "jinaS@123" always shows incorrect
+
+3️⃣ BOOKING NOT WORKING AFTER DEPLOY
+
+4️⃣ SERVICES API FAILING
+- Error: "Failed to load services. Please try again later."
+- Services not appearing on homepage or services page
+
+--------------------------------
+ROOT CAUSE (ASSUME THIS)
+--------------------------------
+
+- Environment variables not loaded correctly in Vercel
+- API routes failing due to serverless execution
+- Password comparison logic broken
+- Services stored only in memory instead of persistent storage
+- Incorrect API base URLs after deployment
+
+--------------------------------
+REQUIRED FIXES
+--------------------------------
+
+✅ ENVIRONMENT VARIABLES
+- Replace all process.env usage with safe fallbacks
+- Ensure app works ONLY using environment variables
+- No hardcoded secrets
+- Add runtime validation for missing env vars
+
+Required env vars:
+- DOCTOR_PASSWORD
+- SMTP_HOST
+- SMTP_PORT
+- SMTP_USER
+- SMTP_PASS
+- SMTP_FROM
+- EMAIL_PROVIDER
+
+--------------------------------
+
+✅ DOCTOR AUTH FIX
+- Doctor password must be compared as STRING
+- Trim whitespace
+- No hashing mismatch
+- Add console logs ONLY in dev
+- Ensure serverless compatibility
+
+Example:
+const isValid = inputPassword.trim() === process.env.DOCTOR_PASSWORD.trim();
+
+--------------------------------
+
+✅ SERVICES DATA FIX
+- DO NOT store services in memory
+- Use persistent JSON file OR Google Sheets
+- Ensure read/write works in serverless
+- API must return valid JSON always
+- No undefined responses
+
+--------------------------------
+
+✅ API ROUTES FIX
+- Convert all backend routes to serverless-safe handlers
+- No long-running processes
+- No in-memory storage
+- Correct HTTP status codes
+
+--------------------------------
+
+✅ BOOKING FIX
+- Booking API must:
+  - Save booking persistently
+  - Send email using SMTP
+  - Return success JSON
+- Add fallback logging if email fails but booking succeeds
+
+--------------------------------
+
+✅ EMAIL FIX (VERCEL SAFE)
+- Use Nodemailer with SMTP only
+- No localhost assumptions
+- Add timeout handling
+- Do not crash API if email fails
+
+--------------------------------
+
+✅ FRONTEND FIX
+- Use relative API paths ("/api/...")
+- Remove localhost URLs
+- Add loading + error states
+- Ensure homepage services fetch works
+
+--------------------------------
+
+DEPLOYMENT RULES
+--------------------------------
+
+- App MUST work on Vercel Free tier
+- No paid APIs
+- No background jobs
+- No filesystem writes unless serverless-safe
+
+--------------------------------
+
+FINAL RESULT
+--------------------------------
+
+After redeploy:
+✔ Doctor login works with password "jinaS@123"
+✔ Emails send from deployed site
+✔ Booking works
+✔ Services load everywhere
+✔ No runtime errors
+
+Fix everything now.

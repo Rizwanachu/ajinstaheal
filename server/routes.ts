@@ -56,11 +56,14 @@ export async function registerRoutes(
       const doctorPassword = process.env.DOCTOR_PASSWORD;
       
       if (!doctorPassword) {
-        return res.status(500).json({ message: "Doctor password not configured" });
+        console.error("DOCTOR_PASSWORD env var is missing");
+        return res.status(500).json({ message: "Server configuration error" });
       }
 
-      if (password.trim() !== doctorPassword.trim()) {
-        console.log("Login failed: Password mismatch");
+      if (String(password).trim() !== String(doctorPassword).trim()) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(`Login failed for password: ${password}`);
+        }
         return res.status(401).json({ message: "Invalid password" });
       }
 
@@ -320,55 +323,56 @@ export async function registerRoutes(
       );
       
       // Send emails asynchronously without blocking the response
-      Promise.all([
-        // Confirmation email to customer
-        sendEmail({
-          to: input.customerEmail,
-          subject: `Booking Confirmation - ${service?.name || 'AJ Insta Heal'}`,
-          html: emailHtml,
-        }),
-        // Notification email to doctor (if configured)
-        process.env.DOCTOR_EMAIL ? sendEmail({
-          to: process.env.DOCTOR_EMAIL,
-          subject: `New Booking: ${input.customerName}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px;">
-              <div style="background: #d4af37; color: black; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
-                <h1 style="margin: 0;">📅 New Booking Received</h1>
+      try {
+        await Promise.all([
+          // Confirmation email to customer
+          sendEmail({
+            to: input.customerEmail,
+            subject: `Booking Confirmation - ${service?.name || 'AJ Insta Heal'}`,
+            html: emailHtml,
+          }),
+          // Notification email to doctor (if configured)
+          process.env.DOCTOR_EMAIL ? sendEmail({
+            to: process.env.DOCTOR_EMAIL,
+            subject: `New Booking: ${input.customerName}`,
+            html: `
+              <div style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px;">
+                <div style="background: #d4af37; color: black; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+                  <h1 style="margin: 0;">📅 New Booking Received</h1>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                  <h2 style="color: #d4af37;">Booking Details</h2>
+                  <p><strong>Booking ID:</strong> ${booking.bookingId}</p>
+                  <p><strong>Customer:</strong> ${input.customerName}</p>
+                  <p><strong>Email:</strong> ${input.customerEmail}</p>
+                  <p><strong>Phone:</strong> ${input.customerPhone}</p>
+                  <p><strong>Service:</strong> ${service?.name || 'Unknown'}</p>
+                  <p><strong>Date:</strong> ${format(new Date(input.date), "MMMM d, yyyy")}</p>
+                  <p><strong>Time:</strong> ${format12Hour(input.time)}</p>
+                  ${input.comments ? `<p><strong>Comments:</strong> ${input.comments}</p>` : ''}
+                  <p style="margin-top: 20px;"><a href="${appUrl}/doctor-dashboard" style="background: #d4af37; color: black; padding: 10px 20px; border-radius: 5px; text-decoration: none;">View Dashboard</a></p>
+                </div>
               </div>
-              <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                <h2 style="color: #d4af37;">Booking Details</h2>
-                <p><strong>Booking ID:</strong> ${booking.bookingId}</p>
-                <p><strong>Customer:</strong> ${input.customerName}</p>
-                <p><strong>Email:</strong> ${input.customerEmail}</p>
-                <p><strong>Phone:</strong> ${input.customerPhone}</p>
-                <p><strong>Service:</strong> ${service?.name || 'Unknown'}</p>
-                <p><strong>Date:</strong> ${format(new Date(input.date), "MMMM d, yyyy")}</p>
-                <p><strong>Time:</strong> ${format12Hour(input.time)}</p>
-                ${input.comments ? `<p><strong>Comments:</strong> ${input.comments}</p>` : ''}
-                <p style="margin-top: 20px;"><a href="${appUrl}/doctor-dashboard" style="background: #d4af37; color: black; padding: 10px 20px; border-radius: 5px; text-decoration: none;">View Dashboard</a></p>
-              </div>
-            </div>
-          `,
-        }) : Promise.resolve(true),
-        // Add to Google Calendar (if configured)
-        addEventToCalendar({
+            `,
+          }) : Promise.resolve(true)
+        ]);
+      } catch (postErr) {
+        console.error("❌ Post-booking email task error:", postErr);
+      }
+
+      // 3. Add to Google Calendar (if configured)
+      try {
+        await addEventToCalendar({
           title: `${input.customerName} - ${service?.name || 'Appointment'}`,
           description: `Customer: ${input.customerName}\nEmail: ${input.customerEmail}\nPhone: ${input.customerPhone}${input.comments ? '\nComments: ' + input.comments : ''}`,
           startTime: new Date(`${input.date}T${input.time}:00`),
           endTime: new Date(new Date(`${input.date}T${input.time}:00`).getTime() + (service?.duration || 60) * 60000),
           attendeeEmail: input.customerEmail,
-        }),
-      ]).then(([customerEmailSent, doctorEmailSent, calendarAdded]) => {
-        if (customerEmailSent) console.log("✅ Confirmation email sent to:", input.customerEmail);
-        if (doctorEmailSent) console.log("✅ Notification sent to doctor");
-        if (calendarAdded) console.log("✅ Event added to Google Calendar");
-      }).catch(err => {
-        console.error("❌ Error in post-booking tasks:", err);
-      });
-
-      // Log booking creation
-      console.log("✅ New Booking Created:", booking.bookingId, "for", input.customerName);
+        });
+        console.log("✅ Event added to Google Calendar");
+      } catch (calErr) {
+        console.error("❌ Google Calendar error (non-fatal):", calErr);
+      }
 
       res.status(201).json(booking);
     } catch (err) {
