@@ -224,7 +224,7 @@ export async function registerRoutes(
         endHour = 18;
       }
 
-      const slots: Array<{ time: string; available: boolean }> = [];
+      const slots: string[] = [];
       let currentTime = parse(`${date} ${startHour}:00`, "yyyy-MM-dd H:mm", new Date());
       const endTime = parse(`${date} ${endHour}:00`, "yyyy-MM-dd H:mm", new Date());
 
@@ -257,10 +257,9 @@ export async function registerRoutes(
           block.startTime && block.endTime && timeString >= block.startTime && timeString < block.endTime
         );
 
-        slots.push({
-          time: timeString,
-          available: !isTaken && !isBlocked,
-        });
+        if (!isTaken && !isBlocked) {
+          slots.push(timeString);
+        }
 
         currentTime = addMinutes(currentTime, 30); // 30 min intervals
       }
