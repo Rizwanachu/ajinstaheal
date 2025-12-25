@@ -109,3 +109,8 @@ app.use((req, res, next) => {
     );
   }
 })();
+
+// Health check endpoint for Vercel
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
