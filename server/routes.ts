@@ -358,8 +358,6 @@ export async function registerRoutes(
         const timeZone = process.env.TIMEZONE || "Asia/Kolkata";
         
         // Construct the date string in the local format for the timezone
-        // This ensures the Date constructor treats it as local time in the server's environment
-        // then we convert it to an ISO string for Google Calendar API
         const localDateTimeStr = `${input.date}T${input.time}:00`;
         const startDateTime = new Date(localDateTimeStr);
         const endDateTime = new Date(startDateTime.getTime() + (service?.duration || 60) * 60000);
@@ -373,8 +371,9 @@ export async function registerRoutes(
         });
 
         if (googleEventId) {
+          // Update the existing booking record with the Google event ID
           await storage.updateBookingGoogleEventId(booking.id, googleEventId);
-          console.log(`✅ Event added to Google Calendar: ${googleEventId}`);
+          console.log(`✅ Event added to Google Calendar and DB updated: ${googleEventId}`);
         }
         
         // Log the exact payload for debugging
