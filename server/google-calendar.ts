@@ -65,7 +65,8 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<boolean>
           dateTime: event.endTime.toISOString(),
           timeZone: process.env.TIMEZONE || "UTC",
         },
-        attendees: event.attendeeEmail ? [{ email: event.attendeeEmail }] : undefined,
+        // Remove attendees as service accounts cannot invite without domain-wide delegation
+        // attendees: event.attendeeEmail ? [{ email: event.attendeeEmail }] : undefined,
         notifications: {
           useDefault: false,
           overrides: [
