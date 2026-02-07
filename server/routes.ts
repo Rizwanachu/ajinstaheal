@@ -201,8 +201,18 @@ export async function registerRoutes(
 
   // === SERVICES ===
   app.get(api.services.list.path, async (req, res) => {
-    const services = await storage.getServices();
-    res.json(services);
+    try {
+      let servicesList = await storage.getServices();
+      if (servicesList.length === 0) {
+        console.log("No services found in database, attempting to seed...");
+        await storage.seedData();
+        servicesList = await storage.getServices();
+      }
+      res.json(servicesList);
+    } catch (err) {
+      console.error("Error fetching services:", err);
+      res.status(500).json({ message: "Failed to fetch services" });
+    }
   });
 
   // === AVAILABILITY ===
