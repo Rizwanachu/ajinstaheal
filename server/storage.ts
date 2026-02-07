@@ -153,14 +153,23 @@ export class DatabaseStorage implements IStorage {
   }
 
   async seedData(): Promise<void> {
-    const existingServices = await this.getServices();
-    if (existingServices.length === 0) {
-      await db.insert(services).values([
-        { name: "General Acupuncture", duration: 60, description: "Holistic acupuncture treatment for general wellness.", price: "Contact for pricing" },
-        { name: "Pain Management", duration: 60, description: "Targeted therapy for chronic and acute pain relief.", price: "Contact for pricing" },
-        { name: "Stress Relief Session", duration: 30, description: "Calming session focused on stress and anxiety reduction.", price: "Contact for pricing" },
-        { name: "Cupping Therapy", duration: 30, description: "Traditional suction cup therapy for blood flow and relaxation.", price: "Contact for pricing" },
-      ]);
+    try {
+      console.log("Checking for existing services to seed...");
+      const existingServices = await this.getServices();
+      if (existingServices.length === 0) {
+        console.log("Seeding services data...");
+        await db.insert(services).values([
+          { name: "General Acupuncture", duration: 60, description: "Holistic acupuncture treatment for general wellness.", price: "Contact for pricing" },
+          { name: "Pain Management", duration: 60, description: "Targeted therapy for chronic and acute pain relief.", price: "Contact for pricing" },
+          { name: "Stress Relief Session", duration: 30, description: "Calming session focused on stress and anxiety reduction.", price: "Contact for pricing" },
+          { name: "Cupping Therapy", duration: 30, description: "Traditional suction cup therapy for blood flow and relaxation.", price: "Contact for pricing" },
+        ]);
+        console.log("Seeding completed successfully.");
+      } else {
+        console.log(`Services already exist: ${existingServices.length} found.`);
+      }
+    } catch (error) {
+      console.error("Error seeding data:", error);
     }
   }
 
