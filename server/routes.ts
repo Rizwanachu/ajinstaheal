@@ -68,6 +68,24 @@ export async function registerRoutes(
     }
   });
 
+  // Manual seeding endpoint for production troubleshooting
+  app.post("/api/admin/seed", async (req, res) => {
+    try {
+      const { password } = req.body;
+      const doctorPassword = process.env.DOCTOR_PASSWORD;
+      
+      if (!doctorPassword || password !== doctorPassword) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      await storage.seedData();
+      const services = await storage.getServices();
+      res.json({ message: "Seeding attempt completed", count: services.length });
+    } catch (err) {
+      res.status(500).json({ message: "Seeding failed" });
+    }
+  });
+
   // === ADMIN ===
   // Get all bookings (for admin dashboard)
   app.get(api.bookings.list.path, async (req, res) => {
