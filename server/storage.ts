@@ -4,7 +4,7 @@ import {
   type Service, type Booking, type Enquiry, type BlockedDate, type DoctorSession,
   type InsertService, type InsertBooking, type InsertEnquiry, type InsertBlockedDate, type InsertDoctorSession
 } from "@shared/schema";
-import { eq, and, like, lt } from "drizzle-orm";
+import { eq, and, like, lt, isNull, isNotNull } from "drizzle-orm";
 
 export interface IStorage {
   // Services
@@ -109,8 +109,8 @@ export class DatabaseStorage implements IStorage {
     const [blocked] = await db.select().from(blockedDates).where(
       and(
         eq(blockedDates.date, date),
-        blockedDates.startTime === null,
-        blockedDates.endTime === null
+        isNull(blockedDates.startTime),
+        isNull(blockedDates.endTime)
       )
     );
     return !!blocked;
@@ -121,7 +121,7 @@ export class DatabaseStorage implements IStorage {
     const dayBlock = await db
       .select()
       .from(blockedDates)
-      .where(and(eq(blockedDates.date, date), blockedDates.startTime === null));
+      .where(and(eq(blockedDates.date, date), isNull(blockedDates.startTime)));
     if (dayBlock.length > 0) return true;
 
     // Check for time-range blocks
@@ -131,8 +131,7 @@ export class DatabaseStorage implements IStorage {
       .where(
         and(
           eq(blockedDates.date, date),
-          blockedDates.startTime !== null,
-          blockedDates.startTime !== undefined
+          isNotNull(blockedDates.startTime)
         )
       );
 
