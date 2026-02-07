@@ -202,16 +202,19 @@ export async function registerRoutes(
   // === SERVICES ===
   app.get(api.services.list.path, async (req, res) => {
     try {
+      console.log("Fetching services...");
       let servicesList = await storage.getServices();
+      console.log(`Found ${servicesList.length} services`);
       if (servicesList.length === 0) {
         console.log("No services found in database, attempting to seed...");
         await storage.seedData();
         servicesList = await storage.getServices();
+        console.log(`After seeding, found ${servicesList.length} services`);
       }
       res.json(servicesList);
     } catch (err) {
       console.error("Error fetching services:", err);
-      res.status(500).json({ message: "Failed to fetch services" });
+      res.status(500).json({ message: "Failed to fetch services", error: String(err) });
     }
   });
 
