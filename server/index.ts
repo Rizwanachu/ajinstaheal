@@ -2,6 +2,8 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import path from "path";
+import fs from "fs";
 
 const app = express();
 const httpServer = createServer(app);
@@ -86,7 +88,12 @@ app.use((req, res, next) => {
       return next();
     }
     if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
-      res.sendFile(path.resolve("dist/public/index.html"));
+      const publicPath = path.resolve("dist/public/index.html");
+      if (fs.existsSync(publicPath)) {
+        res.sendFile(publicPath);
+      } else {
+        res.status(404).send("Frontend build not found");
+      }
     } else {
       next();
     }

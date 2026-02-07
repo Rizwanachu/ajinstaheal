@@ -331,7 +331,7 @@ export async function registerRoutes(
       const service = await storage.getService(input.serviceId);
       
       // 2. Send confirmation email (non-blocking)
-      const appUrl = process.env.APP_URL || process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000';
+      const appUrl = process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.REPLIT_DEV_DOMAIN) || 'http://localhost:5000';
       const manageLink = `${appUrl}/manage-booking?id=${booking.bookingId}&email=${encodeURIComponent(input.customerEmail)}`;
       const emailHtml = createConfirmationEmailHtml(
         input.customerName,
