@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google, calendar_v3 } from "googleapis";
 
 // Google Calendar Service
 // Completely FREE integration - no costs, ever
@@ -72,20 +72,11 @@ export async function addEventToCalendar(event: CalendarEvent): Promise<string |
           dateTime: formatDateTime(event.endTime),
           timeZone,
         },
-        // Remove attendees as service accounts cannot invite without domain-wide delegation
-        // attendees: event.attendeeEmail ? [{ email: event.attendeeEmail }] : undefined,
-        notifications: {
-          useDefault: false,
-          overrides: [
-            { type: "email", minutes: 24 * 60 }, // 24 hours before
-            { type: "email", minutes: 60 }, // 1 hour before
-          ],
-        },
       },
     });
 
-    console.log("Event added to Google Calendar:", response.data.id);
-    return response.data.id || null;
+    console.log("Event added to Google Calendar:", (response as any).data.id);
+    return (response as any).data.id || null;
   } catch (err) {
     console.error("Failed to add event to Google Calendar:", err);
     return null;

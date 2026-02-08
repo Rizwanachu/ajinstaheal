@@ -1,0 +1,105 @@
+21:15:00.482 Running build in Washington, D.C., USA (East) – iad1
+21:15:00.483 Build machine configuration: 2 cores, 8 GB
+21:15:00.663 Cloning github.com/Rizwanachu/ajinstaheal (Branch: main, Commit: 176ee06)
+21:15:01.471 Cloning completed: 807.000ms
+21:15:01.557 Restored build cache from previous deployment (6ppdYfwyYMvspuk3AN8i5ApGR5Go)
+21:15:01.822 Running "vercel build"
+21:15:02.746 Vercel CLI 50.11.0
+21:15:02.868 WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+21:15:03.920 Installing dependencies...
+21:15:05.305 
+21:15:05.305 up to date in 1s
+21:15:05.306 
+21:15:05.306 75 packages are looking for funding
+21:15:05.306   run `npm fund` for details
+21:15:05.339 Running "npm run vercel-build"
+21:15:05.430 
+21:15:05.431 > rest-express@1.0.0 vercel-build
+21:15:05.431 > npm run build
+21:15:05.431 
+21:15:05.527 
+21:15:05.527 > rest-express@1.0.0 build
+21:15:05.527 > vite build && tsx script/build.ts
+21:15:05.527 
+21:15:05.809 [36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+21:15:05.879 transforming...
+21:15:11.293 [32m✓[39m 3032 modules transformed.
+21:15:11.768 rendering chunks...
+21:15:11.782 computing gzip size...
+21:15:11.806 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.45 kB[22m[1m[22m[2m │ gzip:   0.88 kB[22m
+21:15:11.807 [2m../dist/public/[22m[2massets/[22m[35mindex-Bh8eyArv.css  [39m[1m[2m100.58 kB[22m[1m[22m[2m │ gzip:  16.07 kB[22m
+21:15:11.807 [2m../dist/public/[22m[2massets/[22m[36mindex-C5QzeDX3.js   [39m[1m[33m668.56 kB[39m[22m[2m │ gzip: 205.17 kB[22m
+21:15:11.808 [32m✓ built in 5.96s[39m
+21:15:11.808 [33m
+21:15:11.808 (!) Some chunks are larger than 500 kB after minification. Consider:
+21:15:11.808 - Using dynamic import() to code-split the application
+21:15:11.808 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+21:15:11.809 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+21:15:12.736 building client...
+21:15:12.795 [36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+21:15:13.044 transforming...
+21:15:17.973 [32m✓[39m 3032 modules transformed.
+21:15:18.645 rendering chunks...
+21:15:18.658 computing gzip size...
+21:15:18.679 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.45 kB[22m[1m[22m[2m │ gzip:   0.88 kB[22m
+21:15:18.680 [2m../dist/public/[22m[2massets/[22m[35mindex-Bh8eyArv.css  [39m[1m[2m100.58 kB[22m[1m[22m[2m │ gzip:  16.07 kB[22m
+21:15:18.680 [2m../dist/public/[22m[2massets/[22m[36mindex-C5QzeDX3.js   [39m[1m[33m668.56 kB[39m[22m[2m │ gzip: 205.17 kB[22m
+21:15:18.680 [33m
+21:15:18.681 (!) Some chunks are larger than 500 kB after minification. Consider:
+21:15:18.681 - Using dynamic import() to code-split the application
+21:15:18.681 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+21:15:18.681 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+21:15:18.682 [32m✓ built in 5.67s[39m
+21:15:18.682 building server...
+21:15:19.038 
+21:15:19.040   dist/index.cjs  1.3mb ⚠️
+21:15:19.041 
+21:15:19.041 ⚡ Done in 322ms
+21:15:19.149 Running "npm run vercel-build"
+21:15:19.244 
+21:15:19.244 > rest-express@1.0.0 vercel-build
+21:15:19.244 > npm run build
+21:15:19.244 
+21:15:19.338 
+21:15:19.338 > rest-express@1.0.0 build
+21:15:19.338 > vite build && tsx script/build.ts
+21:15:19.339 
+21:15:19.515 [36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+21:15:19.558 transforming...
+21:15:24.318 [32m✓[39m 3032 modules transformed.
+21:15:24.727 rendering chunks...
+21:15:24.740 computing gzip size...
+21:15:24.760 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.45 kB[22m[1m[22m[2m │ gzip:   0.88 kB[22m
+21:15:24.761 [2m../dist/public/[22m[2massets/[22m[35mindex-Bh8eyArv.css  [39m[1m[2m100.58 kB[22m[1m[22m[2m │ gzip:  16.07 kB[22m
+21:15:24.761 [2m../dist/public/[22m[2massets/[22m[36mindex-C5QzeDX3.js   [39m[1m[33m668.56 kB[39m[22m[2m │ gzip: 205.17 kB[22m
+21:15:24.761 [33m
+21:15:24.762 (!) Some chunks are larger than 500 kB after minification. Consider:
+21:15:24.762 - Using dynamic import() to code-split the application
+21:15:24.763 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+21:15:24.763 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+21:15:24.763 [32m✓ built in 5.23s[39m
+21:15:25.567 building client...
+21:15:25.631 [36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+21:15:25.880 transforming...
+21:15:30.900 [32m✓[39m 3032 modules transformed.
+21:15:31.301 rendering chunks...
+21:15:31.313 computing gzip size...
+21:15:31.338 [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.45 kB[22m[1m[22m[2m │ gzip:   0.88 kB[22m
+21:15:31.338 [2m../dist/public/[22m[2massets/[22m[35mindex-Bh8eyArv.css  [39m[1m[2m100.58 kB[22m[1m[22m[2m │ gzip:  16.07 kB[22m
+21:15:31.339 [2m../dist/public/[22m[2massets/[22m[36mindex-C5QzeDX3.js   [39m[1m[33m668.56 kB[39m[22m[2m │ gzip: 205.17 kB[22m
+21:15:31.339 [32m✓ built in 5.49s[39m
+21:15:31.339 building server...
+21:15:31.339 [33m
+21:15:31.339 (!) Some chunks are larger than 500 kB after minification. Consider:
+21:15:31.339 - Using dynamic import() to code-split the application
+21:15:31.339 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+21:15:31.339 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+21:15:31.688 
+21:15:31.691   dist/index.cjs  1.3mb ⚠️
+21:15:31.691 
+21:15:31.692 ⚡ Done in 314ms
+21:15:31.996 Using TypeScript 5.6.3 (local user-provided)
+21:15:50.058 server/google-calendar.ts(15,15): error TS2503: Cannot find namespace 'calendar_v3'.
+21:15:50.058 
+21:16:15.602 Build Completed in /vercel/output [1m]
+21:16:16.245 Deploying outputs...
