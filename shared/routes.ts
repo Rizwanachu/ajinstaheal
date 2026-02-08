@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { insertBookingSchema, insertEnquirySchema, services, blockedDates, bookings } from './schema';
+import { insertBookingSchema, insertEnquirySchema, blockedDates, bookings } from './schema';
 
 export const errorSchemas = {
   validation: z.object({
@@ -8,6 +8,7 @@ export const errorSchemas = {
   }),
   notFound: z.object({
     message: z.string(),
+    field: z.string().optional(),
   }),
   internal: z.object({
     message: z.string(),
@@ -15,22 +16,12 @@ export const errorSchemas = {
 };
 
 export const api = {
-  services: {
-    list: {
-      method: 'GET' as const,
-      path: '/api/services',
-      responses: {
-        200: z.array(z.custom<typeof services.$inferSelect>()),
-      },
-    },
-  },
   availability: {
     get: {
       method: 'GET' as const,
       path: '/api/availability',
       input: z.object({
         date: z.string(), // YYYY-MM-DD
-        serviceId: z.coerce.number(),
       }),
       responses: {
         200: z.object({

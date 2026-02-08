@@ -2,22 +2,16 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { ArrowRight, Star, Sparkles, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ServiceCard } from "@/components/common/ServiceCard";
-import { useServices } from "@/hooks/use-services";
 
 export default function Home() {
-  const { data: services } = useServices();
-
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Abstract Background */}
         <div className="absolute inset-0 bg-[#0a0a0a]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-50" />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[128px]" />
-          {/* Detailed Texture Overlay */}
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay" />
         </div>
 
@@ -53,9 +47,9 @@ export default function Home() {
                   Begin Your Journey
                 </Button>
               </Link>
-              <Link href="/services">
+              <Link href="/about">
                 <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 text-white">
-                  Explore Services
+                  Learn More
                 </Button>
               </Link>
             </div>
@@ -125,32 +119,6 @@ export default function Home() {
                 </Button>
               </Link>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Preview */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl font-display font-bold text-white mb-4">Our Services</h2>
-            <p className="text-muted-foreground">
-              Discover our range of healing modalities designed to support your personal growth and wellbeing.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services?.slice(0, 3).map((service, idx) => (
-              <ServiceCard key={service.id} service={service} index={idx} />
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/services">
-              <Button variant="outline" className="border-primary/20 hover:border-primary text-primary hover:bg-primary/10">
-                View All Services
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

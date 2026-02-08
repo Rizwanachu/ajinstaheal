@@ -1,16 +1,12 @@
 import { db } from "./db";
 import {
-  services, bookings, enquiries, blockedDates, doctorSessions,
-  type Service, type Booking, type Enquiry, type BlockedDate, type DoctorSession,
-  type InsertService, type InsertBooking, type InsertEnquiry, type InsertBlockedDate, type InsertDoctorSession
+  bookings, enquiries, blockedDates, doctorSessions,
+  type Booking, type Enquiry, type BlockedDate, type DoctorSession,
+  type InsertBooking, type InsertEnquiry, type InsertBlockedDate, type InsertDoctorSession
 } from "@shared/schema";
 import { eq, and, like, lt, isNull, isNotNull } from "drizzle-orm";
 
 export interface IStorage {
-  // Services
-  getServices(): Promise<Service[]>;
-  getService(id: number): Promise<Service | undefined>;
-  
   // Bookings
   getAllBookings(): Promise<Booking[]>;
   createBooking(booking: InsertBooking & { token: string; bookingId: string }): Promise<Booking>;
@@ -35,21 +31,9 @@ export interface IStorage {
   getDoctorSession(token: string): Promise<DoctorSession | undefined>;
   deleteDoctorSession(token: string): Promise<void>;
   deleteExpiredSessions(): Promise<void>;
-  
-  // Seeding
-  seedData(): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
-  async getServices(): Promise<Service[]> {
-    return await db.select().from(services);
-  }
-
-  async getService(id: number): Promise<Service | undefined> {
-    const [service] = await db.select().from(services).where(eq(services.id, id));
-    return service;
-  }
-
   async getAllBookings(): Promise<Booking[]> {
     return await db.select().from(bookings).orderBy(bookings.createdAt);
   }
@@ -85,7 +69,7 @@ export class DatabaseStorage implements IStorage {
   async rescheduleBooking(id: number, email: string, newDate: string, newTime: string): Promise<Booking | undefined> {
     const [updated] = await db
       .update(bookings)
-      .set({ date: newDate, time: newTime, status: "confirmed" }) // Reset status to confirmed if it was something else
+      .set({ date: newDate, time: newTime, status: "confirmed" }) 
       .where(and(eq(bookings.id, id), eq(bookings.customerEmail, email)))
       .returning();
     return updated;
@@ -105,7 +89,6 @@ export class DatabaseStorage implements IStorage {
   }
   
   async isDateBlocked(date: string): Promise<boolean> {
-    // Only return true if the ENTIRE day is blocked (startTime and endTime are null)
     const [blocked] = await db.select().from(blockedDates).where(
       and(
         eq(blockedDates.date, date),
@@ -117,14 +100,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async isTimeBlocked(date: string, time: string): Promise<boolean> {
-    // Check for full-day blocks
     const dayBlock = await db
       .select()
       .from(blockedDates)
       .where(and(eq(blockedDates.date, date), isNull(blockedDates.startTime)));
     if (dayBlock.length > 0) return true;
 
-    // Check for time-range blocks
     const timeBlock = await db
       .select()
       .from(blockedDates)
@@ -152,40 +133,15 @@ export class DatabaseStorage implements IStorage {
     await db.delete(blockedDates).where(eq(blockedDates.id, id));
   }
 
-  async seedData(): Promise<void> {
-    try {
-      console.log("Checking for existing services to seed...");
-      const existingServices = await this.getServices();
-      if (existingServices.length === 0) {
-        console.log("Seeding services data...");
-        await db.insert(services).values([
-          { name: "General Acupuncture", duration: 60, description: "Holistic acupuncture treatment for general wellness.", price: "Contact for pricing" },
-          { name: "Pain Management", duration: 60, description: "Targeted therapy for chronic and acute pain relief.", price: "Contact for pricing" },
-          { name: "Stress Relief Session", duration: 30, description: "Calming session focused on stress and anxiety reduction.", price: "Contact for pricing" },
-          { name: "Cupping Therapy", duration: 30, description: "Traditional suction cup therapy for blood flow and relaxation.", price: "Contact for pricing" },
-        ]);
-        console.log("Seeding completed successfully.");
-      } else {
-        console.log(`Services already exist: ${existingServices.length} found.`);
-      }
-    } catch (error) {
-      console.error("Error seeding data:", error);
-    }
-  }
-
   // Doctor Sessions (for Vercel-safe authentication)
   async createDoctorSession(token: string, expiresAt: Date): Promise<DoctorSession> {
-    // Delete expired sessions first
     await this.deleteExpiredSessions();
-    
     const [session] = await db.insert(doctorSessions).values({ token, expiresAt }).returning();
     return session;
   }
 
   async getDoctorSession(token: string): Promise<DoctorSession | undefined> {
-    // Delete expired sessions first
     await this.deleteExpiredSessions();
-    
     const [session] = await db.select().from(doctorSessions).where(eq(doctorSessions.token, token));
     return session;
   }

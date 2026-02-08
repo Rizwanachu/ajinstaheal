@@ -10,7 +10,6 @@ import { ScrollToTop } from "@/components/common/ScrollToTop";
 
 import Home from "@/pages/Home";
 import About from "@/pages/About";
-import Services from "@/pages/Services";
 import Contact from "@/pages/Contact";
 import Book from "@/pages/Book";
 import ManageBooking from "@/pages/ManageBooking";
@@ -40,7 +39,6 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/services" component={Services} />
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/book" component={Book} />

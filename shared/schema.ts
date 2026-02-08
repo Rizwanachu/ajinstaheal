@@ -2,24 +2,10 @@ import { pgTable, text, serial, integer, boolean, timestamp, date } from "drizzl
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// === SERVICES ===
-export const services = pgTable("services", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  duration: integer("duration").notNull(), // in minutes (30 or 60)
-  description: text("description").notNull(),
-  price: text("price").default("Contact for pricing"),
-});
-
-export const insertServiceSchema = createInsertSchema(services).omit({ id: true });
-export type Service = typeof services.$inferSelect;
-export type InsertService = z.infer<typeof insertServiceSchema>;
-
 // === BOOKINGS ===
 export const bookings = pgTable("bookings", {
   id: serial("id").primaryKey(),
   bookingId: text("booking_id").notNull().unique(), // AJIH-YYYYMMDD-XXXX format
-  serviceId: integer("service_id").notNull(), // Foreign key logic handled in app
   date: text("date").notNull(), // YYYY-MM-DD
   time: text("time").notNull(), // HH:mm
   customerName: text("customer_name").notNull(),
