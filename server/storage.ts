@@ -15,6 +15,7 @@ export interface IStorage {
   getBookingByBookingId(bookingId: string): Promise<Booking | undefined>;
   cancelBooking(id: number, email: string): Promise<Booking | undefined>;
   rescheduleBooking(id: number, email: string, newDate: string, newTime: string): Promise<Booking | undefined>;
+  updateBookingStatus(id: number, status: string): Promise<Booking | undefined>;
   
   // Enquiries
   createEnquiry(enquiry: InsertEnquiry): Promise<Enquiry>;
@@ -72,6 +73,15 @@ export class DatabaseStorage implements IStorage {
       .update(bookings)
       .set({ date: newDate, time: newTime, status: "confirmed" }) 
       .where(and(eq(bookings.id, id), eq(bookings.customerEmail, email)))
+      .returning();
+    return updated;
+  }
+
+  async updateBookingStatus(id: number, status: string): Promise<Booking | undefined> {
+    const [updated] = await db
+      .update(bookings)
+      .set({ status })
+      .where(eq(bookings.id, id))
       .returning();
     return updated;
   }

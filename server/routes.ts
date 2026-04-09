@@ -453,6 +453,38 @@ export async function registerRoutes(
     }
   });
 
+  app.patch("/api/admin/bookings/:id/complete", async (req, res) => {
+    try {
+      const token = req.headers["x-doctor-token"] as string;
+      if (!token || !(await isValidDoctorToken(token))) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      const id = Number(req.params.id);
+      const booking = await storage.getBookingById(id);
+      if (!booking) return res.status(404).json({ message: "Booking not found" });
+      const updated = await storage.updateBookingStatus(id, "completed");
+      res.json(updated);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to mark complete" });
+    }
+  });
+
+  app.patch("/api/admin/bookings/:id/confirm", async (req, res) => {
+    try {
+      const token = req.headers["x-doctor-token"] as string;
+      if (!token || !(await isValidDoctorToken(token))) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      const id = Number(req.params.id);
+      const booking = await storage.getBookingById(id);
+      if (!booking) return res.status(404).json({ message: "Booking not found" });
+      const updated = await storage.updateBookingStatus(id, "confirmed");
+      res.json(updated);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to confirm booking" });
+    }
+  });
+
   // === ENQUIRIES ===
   app.get("/api/admin/enquiries", async (req, res) => {
     try {
