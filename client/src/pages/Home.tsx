@@ -45,7 +45,7 @@ export default function Home() {
     <div className="overflow-hidden">
       {/* ─── Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-background">
+        <div className="absolute inset-0 bg-background dark:bg-[#0d0d0d]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-50" />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[128px]" />
