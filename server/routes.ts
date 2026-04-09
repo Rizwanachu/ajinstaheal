@@ -409,5 +409,19 @@ export async function registerRoutes(
     }
   });
 
+  // === ENQUIRIES ===
+  app.post(api.enquiries.create.path, async (req, res) => {
+    try {
+      const input = api.enquiries.create.input.parse(req.body);
+      await storage.createEnquiry(input);
+      res.status(201).json({ success: true });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid input" });
+      }
+      res.status(500).json({ message: "Failed to submit enquiry" });
+    }
+  });
+
   return httpServer;
 }

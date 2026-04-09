@@ -239,7 +239,7 @@ export function createReminderEmailHtml(
             
             <p style="margin-top: 20px; color: #666; font-size: 14px;">
               <strong>📍 Location:</strong> Mattancherry, Ernakulam, Kerala, India<br>
-              <strong>📞 Contact:</strong> +91 987 654 3210
+              <strong>📞 Contact:</strong> +91 70253 98998
             </p>
           </div>
           
