@@ -3,18 +3,18 @@ import { api, buildUrl } from "@shared/routes";
 import type { CreateBookingRequest } from "@shared/schema";
 import { z } from "zod";
 
-export function useAvailability(date: string | undefined, serviceId: number | undefined) {
+export function useAvailability(date: string | undefined, serviceId?: number | undefined) {
   return useQuery({
-    queryKey: [api.availability.get.path, date, serviceId],
+    queryKey: [api.availability.get.path, date],
     queryFn: async () => {
-      if (!date || !serviceId) return null;
+      if (!date) return null;
       
-      const url = buildUrl(api.availability.get.path) + `?date=${date}&serviceId=${serviceId}`;
+      const url = buildUrl(api.availability.get.path) + `?date=${date}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error("Failed to fetch availability");
       return api.availability.get.responses[200].parse(await res.json());
     },
-    enabled: !!date && !!serviceId,
+    enabled: !!date,
   });
 }
 
