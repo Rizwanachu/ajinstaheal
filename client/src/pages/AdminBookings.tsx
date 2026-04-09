@@ -1,10 +1,10 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, type ReactNode } from "react";
 import { format, isToday, isFuture, isPast, parseISO, isBefore, isAfter } from "date-fns";
 import {
   Loader2, LogOut, RefreshCw, Search, Download, Calendar,
   Phone, Mail, MessageSquare, X, BarChart3,
   Clock, XCircle, CheckCircle2, ChevronDown, ChevronUp,
-  User, CheckCheck, MessageCircle, Sparkles
+  User, CheckCheck, MessageCircle, Sparkles, Plus, CalendarDays
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { api } from "@shared/routes";
@@ -84,6 +84,20 @@ function statusBadge(status: string) {
   }
 }
 
+function Tooltip({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="relative group/tip">
+      {children}
+      <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 opacity-0 group-hover/tip:opacity-100 transition-opacity duration-150">
+        <div className="bg-popover text-popover-foreground text-xs font-medium px-2.5 py-1 rounded-md shadow-lg whitespace-nowrap border border-border">
+          {label}
+        </div>
+        <div className="w-2 h-2 bg-popover border-r border-b border-border rotate-45 mx-auto -mt-1" />
+      </div>
+    </div>
+  );
+}
+
 function SmartSuggestion({ booking }: { booking: Booking }) {
   if (booking.status === "cancelled" || booking.status === "completed") return null;
   if (isBookingPast(booking)) {
@@ -113,6 +127,7 @@ export default function AdminBookings() {
   const [search, setSearch] = useState("");
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [actionLoading, setActionLoading] = useState<{ id: number; action: string } | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
@@ -123,8 +138,9 @@ export default function AdminBookings() {
     fetchAll();
   }, []);
 
-  const fetchAll = async () => {
-    setIsLoading(true);
+  const fetchAll = async (silent = false) => {
+    if (!silent) setIsLoading(true);
+    setIsRefreshing(true);
     try {
       const [bRes, eRes] = await Promise.all([
         fetch(api.bookings.list.path, { headers: { "x-doctor-token": token() } }),
@@ -137,10 +153,12 @@ export default function AdminBookings() {
       }
       if (bRes.ok) setBookings(await bRes.json());
       if (eRes.ok) setEnquiries(await eRes.json());
+      if (silent) toast({ title: "Data refreshed" });
     } catch {
       toast({ variant: "destructive", title: "Failed to load data" });
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -232,18 +250,65 @@ export default function AdminBookings() {
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-display font-bold text-foreground">Healer Dashboard</h1>
             <p className="text-muted-foreground text-sm mt-1">{format(new Date(), "EEEE, d MMMM yyyy")}</p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={fetchAll} data-testid="button-refresh">
-              <RefreshCw className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleLogout} data-testid="button-logout">
-              <LogOut className="mr-2 h-4 w-4" />Logout
-            </Button>
+
+          {/* Quick Actions Bar */}
+          <div className="flex items-center gap-2">
+
+            {/* New Booking */}
+            <Tooltip label="New Booking">
+              <Button
+                size="sm"
+                onClick={() => setLocation("/book")}
+                data-testid="button-new-booking"
+                className="gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-primary/40 hover:shadow-md hover:-translate-y-px active:translate-y-0"
+              >
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">New Booking</span>
+              </Button>
+            </Tooltip>
+
+            <div className="w-px h-6 bg-border mx-0.5 hidden sm:block" />
+
+            {/* Refresh */}
+            <Tooltip label="Refresh data">
+              <button
+                onClick={() => fetchAll(true)}
+                disabled={isRefreshing}
+                data-testid="button-refresh"
+                className="h-8 w-8 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-muted hover:border-primary/40 text-muted-foreground hover:text-foreground transition-all duration-200 disabled:opacity-50"
+              >
+                <RefreshCw className={`h-4 w-4 transition-transform duration-500 ${isRefreshing ? "animate-spin" : "hover:rotate-180"}`} />
+              </button>
+            </Tooltip>
+
+            {/* Calendar (placeholder) */}
+            <Tooltip label="Calendar view (coming soon)">
+              <button
+                onClick={() => toast({ title: "Calendar view coming soon" })}
+                data-testid="button-calendar"
+                className="h-8 w-8 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-muted hover:border-primary/40 text-muted-foreground hover:text-foreground transition-all duration-200"
+              >
+                <CalendarDays className="h-4 w-4" />
+              </button>
+            </Tooltip>
+
+            <div className="w-px h-6 bg-border mx-0.5 hidden sm:block" />
+
+            {/* Logout */}
+            <Tooltip label="Logout">
+              <button
+                onClick={handleLogout}
+                data-testid="button-logout"
+                className="h-8 w-8 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-red-500/10 hover:border-red-500/30 text-muted-foreground hover:text-red-500 transition-all duration-200"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </Tooltip>
           </div>
         </div>
 
