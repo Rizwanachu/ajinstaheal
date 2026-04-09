@@ -115,9 +115,9 @@ export default function Home() {
             >
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted border border-border group">
                 <img
-                  src="/healing.png"
+                  src="/philosophy.png"
                   alt="Acupuncture healing therapy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />

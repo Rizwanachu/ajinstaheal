@@ -6,3 +6,9 @@ id = "XALslbvdH68lxWrNuiaF7"
 uri = "file://client/public/hero-bg.png"
 type = "image"
 title = "healing clinic hero bg"
+
+[[generated]]
+id = "lVqlXkhTxyYEL5Ol9WNlf"
+uri = "file://client/public/philosophy.png"
+type = "image"
+title = "philosophy healing image"
