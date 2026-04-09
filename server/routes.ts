@@ -182,7 +182,7 @@ export async function registerRoutes(
       const { date } = api.availability.get.input.parse(req.query);
       
       // Check if date is blocked
-      const isBlocked = await storage.isDateBlocked(date);
+      const isBlocked = await storage.isDateBlocked(date).catch(() => false);
       if (isBlocked) {
         return res.json({ date, slots: [] });
       }
@@ -207,8 +207,8 @@ export async function registerRoutes(
         ];
       }
 
-      const existingBookings = await storage.getBookingsByDate(date);
-      const blockedDatesForDate = await db.select().from(blockedDates).where(eq(blockedDates.date, date));
+      const existingBookings = await storage.getBookingsByDate(date).catch(() => []);
+      const blockedDatesForDate = await db.select().from(blockedDates).where(eq(blockedDates.date, date)).catch(() => []);
       const timeBlock = blockedDatesForDate.filter(b => b.startTime && b.endTime);
 
       const slots: string[] = [];

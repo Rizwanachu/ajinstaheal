@@ -61,20 +61,19 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
+// Initialize routes and wait for readiness before serving requests
+let appReady: Promise<void>;
+
+appReady = (async () => {
   await registerRoutes(httpServer, app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
   if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
     serveStatic(app);
   } else {
@@ -82,7 +81,6 @@ app.use((req, res, next) => {
     await setupVite(httpServer, app);
   }
 
-  // Handle SPA routing on Vercel
   app.get("*", (req, res, next) => {
     if (req.path.startsWith("/api")) {
       return next();
@@ -98,24 +96,22 @@ app.use((req, res, next) => {
       next();
     }
   });
-
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    },
-    () => {
-      log(`serving on port ${port}`);
-    },
-  );
 })();
 
-// Health check endpoint for Vercel
+// Health check endpoint — registered immediately, no async dependency
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// Start the server in non-Vercel environments
+if (!process.env.VERCEL) {
+  appReady.then(() => {
+    const port = parseInt(process.env.PORT || "5000", 10);
+    httpServer.listen(
+      { port, host: "0.0.0.0", reusePort: true },
+      () => { log(`serving on port ${port}`); }
+    );
+  });
+}
 
 export default app;
