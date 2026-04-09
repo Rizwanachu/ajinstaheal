@@ -288,7 +288,6 @@ export default function Home() {
 
           <div className="max-w-3xl mx-auto">
             <div className="relative">
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent hidden sm:block" />
               <div className="space-y-4">
                 {programPhases.map((phase, i) => (
                   <motion.div
