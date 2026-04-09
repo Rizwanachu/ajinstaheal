@@ -1,0 +1,83 @@
+You are a senior full-stack engineer and UX strategist.
+
+I have built a complete acupuncture clinic website called "AJ Insta Heal" using:
+- React + Vite + TypeScript
+- Express.js backend
+- PostgreSQL (Drizzle ORM)
+- Tailwind CSS + shadcn/ui
+- Framer Motion animations
+- Nodemailer (Gmail SMTP)
+
+The platform already includes:
+- Public marketing website (Home, About, FAQ, Contact)
+- Multi-step booking system with real-time availability
+- Booking management (reschedule/cancel via Booking ID)
+- Admin dashboard (appointments + enquiries)
+- Automated email system
+- Dark premium UI (gold + black theme)
+
+Your task is to UPGRADE and OPTIMIZE this project to production-level quality with a focus on:
+
+1. CONVERSION RATE OPTIMIZATION
+- Improve homepage structure for higher booking conversions
+- Add urgency elements (limited slots, real-time availability indicators)
+- Add sticky "Book Now" CTA for mobile and desktop
+- Add trust signals (badges, certifications, patient count, testimonials enhancement)
+- Improve CTA copy to feel more human and emotional
+
+2. UX & FLOW IMPROVEMENTS
+- Reduce friction in booking flow (faster steps, smarter defaults)
+- Add progress persistence (save step progress if user refreshes)
+- Add inline validation and better error handling
+- Improve success screen with next-step guidance (maps, WhatsApp, directions)
+
+3. ADMIN DASHBOARD ENHANCEMENTS
+- Add filters (date, status, service)
+- Add search (by name, phone, booking ID)
+- Add daily/weekly analytics (appointments count, cancellations, revenue placeholder)
+- Add export to CSV feature
+- Improve UI clarity and hierarchy
+
+4. PERFORMANCE & SEO
+- Optimize images and lazy loading
+- Add proper meta tags (title, description, OG tags)
+- Add schema markup for Local Business + Medical Clinic
+- Improve page speed and reduce unnecessary re-renders
+- Add sitemap and robots.txt
+
+5. SECURITY & RELIABILITY
+- Secure admin authentication (hashed password, better session handling)
+- Validate all inputs (backend + frontend)
+- Prevent double booking race conditions
+- Add rate limiting for booking and contact forms
+
+6. FEATURE UPGRADES
+- Add optional WhatsApp integration (send booking confirmation link)
+- Add Google Maps embed on contact and success page
+- Add calendar sync placeholder structure (Google Calendar ready)
+- Add "Repeat Booking" shortcut for returning users
+- Add dark/light mode toggle 
+
+7. DESIGN POLISH
+- Maintain premium dark + gold theme but improve spacing, readability, and hierarchy
+- Improve mobile experience significantly
+- Make animations smoother and more purposeful (reduce overuse)
+- Ensure accessibility (contrast, font size, button tap areas)
+
+8. CODE QUALITY
+- Refactor for clean architecture
+- Separate concerns (services, controllers, hooks)
+- Add reusable components
+- Improve naming consistency
+- Add comments where necessary
+
+IMPORTANT:
+- Do NOT break existing functionality
+- Keep everything responsive
+- Keep design premium and minimal
+- Focus on real-world usability, not just visuals
+
+Output:
+- Updated code snippets where needed
+- Clear explanation of improvements
+- Any new files or structure changes

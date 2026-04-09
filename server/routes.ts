@@ -9,9 +9,28 @@ import { randomBytes } from "crypto";
 import { sendEmail, createConfirmationEmailHtml } from "./email";
 import { addEventToCalendar, archiveEventInCalendar } from "./google-calendar";
 import { db } from "./db";
-import { blockedDates } from "@shared/schema";
+import { blockedDates, bookings } from "@shared/schema";
 
 import { eq } from "drizzle-orm";
+
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+function rateLimit(maxRequests: number, windowMs: number) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const ip = req.ip ?? req.socket.remoteAddress ?? "unknown";
+    const now = Date.now();
+    const record = rateLimitMap.get(ip);
+    if (!record || now > record.resetAt) {
+      rateLimitMap.set(ip, { count: 1, resetAt: now + windowMs });
+      return next();
+    }
+    record.count++;
+    if (record.count > maxRequests) {
+      return res.status(429).json({ message: "Too many requests, please try again later." });
+    }
+    next();
+  };
+}
 
 // Convert 24-hour format (HH:mm) to 12-hour format (h:mm AM/PM)
 function format12Hour(time24: string): string {
@@ -250,7 +269,7 @@ export async function registerRoutes(
   });
 
   // === BOOKINGS ===
-  app.post(api.bookings.create.path, async (req, res) => {
+  app.post(api.bookings.create.path, rateLimit(5, 60 * 1000), async (req, res) => {
     try {
       const input = api.bookings.create.input.parse(req.body);
       const token = randomBytes(32).toString("hex");
@@ -417,8 +436,38 @@ export async function registerRoutes(
     }
   });
 
+  // Admin cancel (no email required)
+  app.patch("/api/admin/bookings/:id/cancel", async (req, res) => {
+    try {
+      const token = req.headers["x-doctor-token"] as string;
+      if (!token || !(await isValidDoctorToken(token))) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      const id = Number(req.params.id);
+      const booking = await storage.getBookingById(id);
+      if (!booking) return res.status(404).json({ message: "Booking not found" });
+      const [updated] = await db.update(bookings).set({ status: "cancelled" }).where(eq(bookings.id, id)).returning();
+      res.json(updated);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to cancel booking" });
+    }
+  });
+
   // === ENQUIRIES ===
-  app.post(api.enquiries.create.path, async (req, res) => {
+  app.get("/api/admin/enquiries", async (req, res) => {
+    try {
+      const token = req.headers["x-doctor-token"] as string;
+      if (!token || !(await isValidDoctorToken(token))) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+      const allEnquiries = await storage.getAllEnquiries();
+      res.json(allEnquiries);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to fetch enquiries" });
+    }
+  });
+
+  app.post(api.enquiries.create.path, rateLimit(3, 60 * 1000), async (req, res) => {
     try {
       const input = api.enquiries.create.input.parse(req.body);
       await storage.createEnquiry(input);

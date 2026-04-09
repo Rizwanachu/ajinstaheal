@@ -77,3 +77,29 @@ Preferred communication style: Simple, everyday language.
 - `EMAIL_PROVIDER` - Email service provider (sendgrid/resend/smtp)
 - Email-specific credentials based on provider choice
 - `TIMEZONE` - Timezone for appointment display (default: Asia/Kolkata)
+
+## Recent Upgrades
+
+### Admin Dashboard (AdminBookings.tsx)
+- Full rewrite with analytics cards (Today / Upcoming / Cancelled / Total)
+- Search by name, email, phone, or booking ID
+- Status filter (All / Confirmed / Cancelled)
+- Date filter (All / Today / Upcoming / Past)
+- CSV export of filtered results
+- Enquiries tab showing all contact form submissions
+- Admin cancel booking (no email required) via `/api/admin/bookings/:id/cancel`
+- Admin enquiries list via `/api/admin/enquiries`
+
+### SEO & Discovery
+- Full SEO meta tags in `client/index.html` (title, description, keywords, Open Graph, Twitter Card)
+- LocalBusiness / MedicalClinic JSON-LD structured data
+- `client/public/robots.txt` and `client/public/sitemap.xml` created
+- Google Fonts reduced to only fonts actually in use (faster load)
+
+### UX Improvements
+- Sticky mobile Book Now + WhatsApp CTA bar (hidden on /book, /manage-booking, /doctor-dashboard)
+- Booking success screen: WhatsApp and Get Directions buttons added
+- Footer: fixed broken /services link (removed; replaced with Contact Us)
+
+### Security
+- Simple in-memory rate limiting on booking creation (5/min) and contact enquiries (3/min)

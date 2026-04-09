@@ -18,6 +18,7 @@ export interface IStorage {
   
   // Enquiries
   createEnquiry(enquiry: InsertEnquiry): Promise<Enquiry>;
+  getAllEnquiries(): Promise<Enquiry[]>;
   
   // Blocked Dates
   getBlockedDates(): Promise<BlockedDate[]>;
@@ -82,6 +83,10 @@ export class DatabaseStorage implements IStorage {
   async createEnquiry(enquiry: InsertEnquiry): Promise<Enquiry> {
     const [newEnquiry] = await db.insert(enquiries).values(enquiry).returning();
     return newEnquiry;
+  }
+
+  async getAllEnquiries(): Promise<Enquiry[]> {
+    return await db.select().from(enquiries).orderBy(enquiries.createdAt);
   }
 
   async getBlockedDates(): Promise<BlockedDate[]> {

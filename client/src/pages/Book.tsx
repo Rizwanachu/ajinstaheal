@@ -302,11 +302,29 @@ export default function Book() {
                     <span className="text-primary font-mono font-bold">{bookingId}</span>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
                     <Button variant="gold" onClick={() => setLocation("/manage-booking")} className="rounded-full px-8">
                       Manage Booking
                     </Button>
-                    <Button variant="outline" onClick={() => setLocation("/")} className="rounded-full px-8 border-white/10 text-white">
+                    <a
+                      href={`https://wa.me/917025398998?text=Hi%2C%20I%20just%20booked%20an%20appointment%20at%20AJ%20Insta%20Heal%20(ID%3A%20${encodeURIComponent(bookingId ?? "")})`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button variant="outline" className="rounded-full px-8 border-green-500/30 text-green-400 hover:bg-green-500/10 w-full">
+                        WhatsApp Us
+                      </Button>
+                    </a>
+                    <a
+                      href="https://maps.app.goo.gl/fEgjpBbdRPoLiPTWA"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button variant="outline" className="rounded-full px-8 border-white/10 text-white w-full">
+                        Get Directions
+                      </Button>
+                    </a>
+                    <Button variant="ghost" onClick={() => setLocation("/")} className="rounded-full px-8 text-muted-foreground">
                       Back to Home
                     </Button>
                   </div>
