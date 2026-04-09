@@ -8,33 +8,61 @@
   --font-display: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Premium Dark Theme */
+  /* Light Theme (default) */
+  --background: 40 30% 97%;     /* #faf8f4 - warm off-white */
+  --foreground: 0 0% 12%;       /* #1f1f1f - near black */
+
+  --primary: 43 64% 42%;        /* slightly deeper gold for light bg */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 40 20% 92%;      /* #ede9e1 - warm light grey */
+  --secondary-foreground: 0 0% 15%;
+
+  --muted: 40 15% 90%;
+  --muted-foreground: 0 0% 42%;
+
+  --accent: 43 64% 42%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 72% 45%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 40 20% 84%;
+  --input: 40 15% 90%;
+  --ring: 43 64% 42%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 12%;
+
+  --radius: 0.75rem;
+}
+
+/* Dark Theme */
+.dark {
   --background: 0 0% 10%;       /* #1a1a1a */
-  --foreground: 45 20% 95%;     /* #fbf9f4 - Soft warm white */
-  
-  --primary: 43 64% 52%;        /* #D4AF37 - Metallic Gold */
+  --foreground: 45 20% 95%;     /* #fbf9f4 - soft warm white */
+
+  --primary: 43 64% 52%;        /* #D4AF37 - metallic gold */
   --primary-foreground: 0 0% 10%;
-  
+
   --secondary: 0 0% 15%;        /* #262626 */
   --secondary-foreground: 45 20% 95%;
-  
+
   --muted: 0 0% 20%;
   --muted-foreground: 0 0% 60%;
-  
+
   --accent: 43 64% 52%;
   --accent-foreground: 0 0% 10%;
-  
+
   --destructive: 0 62% 30%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 43 30% 25%;         /* Subtle gold tinted border */
+  --border: 43 30% 25%;
   --input: 0 0% 20%;
   --ring: 43 64% 52%;
 
   --card: 0 0% 12%;
   --card-foreground: 45 20% 95%;
-
-  --radius: 0.75rem;
 }
 
 @layer base {

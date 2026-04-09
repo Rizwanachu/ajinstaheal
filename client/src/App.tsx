@@ -20,6 +20,7 @@ import { Privacy, Terms, Disclaimer } from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { useLocation, Link } from "wouter";
+import { ThemeProvider } from "@/hooks/use-theme";
 
 const HIDE_CTA_PATHS = ["/book", "/manage-booking", "/doctor-login", "/doctor-dashboard"];
 
@@ -89,12 +90,14 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
