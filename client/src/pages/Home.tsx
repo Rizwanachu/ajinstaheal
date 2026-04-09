@@ -22,20 +22,20 @@ const programPhases = [
 ];
 
 const whyUs = [
-  { icon: <Shield className="w-6 h-6" />, title: "Root-Cause Healing", desc: "We address the source of your condition, not just the symptoms, for lasting relief." },
-  { icon: <Heart className="w-6 h-6" />, title: "Personalized Care", desc: "Every session is tailored specifically to your body, history, and healing goals." },
-  { icon: <Leaf className="w-6 h-6" />, title: "Natural & Non-Invasive", desc: "Safe, drug-free acupuncture that works with your body's innate healing intelligence." },
+  { icon: <Shield className="w-6 h-6" />, title: "Root-Cause Healing", desc: "We go beyond symptoms to find and treat the source of your condition for real, lasting relief." },
+  { icon: <Heart className="w-6 h-6" />, title: "Personalized Care", desc: "Every session is designed around you. Your body, your history, your goals." },
+  { icon: <Leaf className="w-6 h-6" />, title: "Natural & Non-Invasive", desc: "Drug-free acupuncture that works with your body's own healing intelligence." },
 ];
 
 const services = [
   {
     title: "Pain Management",
-    desc: "Targeted acupuncture protocols for chronic and acute pain — joints, spine, headaches, and more. We work to eliminate the source of pain, not mask it.",
+    desc: "Targeted acupuncture for chronic and acute pain. Whether it's joints, spine or headaches, we work to remove the source of pain rather than mask it.",
     icon: "🩺",
   },
   {
     title: "Acupuncture for All Conditions",
-    desc: "From stress and digestive issues to hormonal imbalances and immunity — acupuncture's scope covers the whole body. Each session is personalized to your unique condition.",
+    desc: "From stress and digestion to hormonal health and immunity, acupuncture addresses the whole body. Every session is tailored to your specific condition.",
     icon: "✦",
   },
 ];
@@ -70,7 +70,7 @@ export default function Home() {
 
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Experience profound healing and transformation at AJ Insta Heal.
-              We guide you on a journey to inner peace, wellness, and spiritual awakening.
+              We guide you toward inner peace, wellness and spiritual awakening.
             </p>
 
             <div className="text-white italic text-base sm:text-lg border-l-4 border-primary pl-5 py-3 bg-white/5 rounded-r-lg text-left max-w-xl mx-auto">
@@ -126,10 +126,10 @@ export default function Home() {
             >
               <h2 className="text-4xl font-display font-bold text-white">Our Philosophy</h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief, but focusing on the underlying reason leads to a more complete cure.
+                The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief. Focusing on the underlying reason leads to a more complete cure.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Acupuncture is a powerful approach that targets the source, restoring balance to mind, body, and spirit. Located in the historic town of Mattancherry, our sanctuary blends ancient wisdom with compassionate, personalized care.
+                Acupuncture targets the source, restoring balance to mind, body and spirit. Located in the historic town of Mattancherry, our sanctuary blends ancient wisdom with compassionate, personalized care.
               </p>
 
               <ul className="space-y-3 pt-2">
@@ -168,9 +168,9 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Why Choose AJ Insta Heal?</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Why Choose AJ Insta Heal</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              We combine time-tested healing practices with a deep commitment to your individual well-being.
+              Time-tested healing practices paired with a genuine commitment to your well-being.
             </p>
           </motion.div>
 
@@ -208,7 +208,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Services</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Focused, effective treatments designed to restore your body's natural balance.
+              Focused treatments designed to restore your body's natural balance.
             </p>
           </motion.div>
 
@@ -244,7 +244,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Healers</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Guided by certified practitioners devoted to your complete healing and well-being.
+              Certified practitioners devoted to your healing and well-being.
             </p>
           </motion.div>
 
@@ -282,7 +282,7 @@ export default function Home() {
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Structured Healing Program</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our treatment follows a proven three-phase protocol that gives your body time to heal deeply and restore lasting balance.
+              A proven three-phase approach that gives your body the space to heal deeply and restore lasting balance.
             </p>
           </motion.div>
 
@@ -335,7 +335,7 @@ export default function Home() {
               className="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-2xl text-center"
             >
               <p className="text-white/80 text-sm leading-relaxed">
-                Total Program: <span className="text-primary font-bold">21 treatment days</span> across 3 phases, structured to give your body the rest it needs between intensive healing sessions.
+                Total Program: <span className="text-primary font-bold">21 treatment days</span> across 3 phases, with built-in rest periods so your body can absorb and integrate each stage of healing.
               </p>
             </motion.div>
           </div>
@@ -354,7 +354,7 @@ export default function Home() {
           >
             <h2 className="text-3xl font-display font-bold text-white mb-4">Healing Stories</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Real experiences from people whose lives have been transformed.
+              Real words from people whose lives have been transformed.
             </p>
           </motion.div>
 
@@ -379,7 +379,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic mb-6 leading-relaxed">"{review.text}"</p>
-                <p className="text-white font-medium">— {review.name}</p>
+                <p className="text-white font-medium">{review.name}</p>
               </motion.div>
             ))}
           </div>
@@ -398,14 +398,14 @@ export default function Home() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Ready to Transform Your Life?</h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Ready to Begin?</h2>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              Take the first step towards a balanced, peaceful, and empowered future.
+              Take the first step toward a more balanced, peaceful life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link href="/book">
                 <Button variant="gold" size="lg" className="text-lg px-12 rounded-full shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.03] transition-all duration-300">
-                  Book Your Appointment
+                  Book Now
                 </Button>
               </Link>
               <Link href="/contact">

@@ -13,15 +13,15 @@ export default function FAQ() {
       items: [
         {
           q: "What is AJ Insta Heal's philosophy?",
-          a: "At AJ Insta Heal, we believe in a holistic approach to wellness. Our core philosophy is: 'We treat people, not diseases.' This means we focus on understanding and healing the whole person—mind, body, and spirit—rather than just treating symptoms. Every session is personalized to your unique needs and journey."
+          a: "Our core belief is simple: we treat people, not diseases. Rather than chasing symptoms, we take time to understand the whole person. Mind, body and spirit. Every session is personalized to your unique needs and journey."
         },
         {
           q: "Where is AJ Insta Heal located?",
-          a: "We are located in the beautiful and historic town of Mattancherry, Ernakulam, Kerala, India. Our sanctuary provides a peaceful and welcoming environment for healing and spiritual growth."
+          a: "We are based in the historic town of Mattancherry, Ernakulam, Kerala, India. Our space is calm, welcoming and designed to support your healing from the moment you walk in."
         },
         {
           q: "Is AJ Insta Heal suitable for beginners?",
-          a: "Absolutely! Our services are designed for everyone, regardless of experience level. Whether you're new to holistic healing or have been on this journey for years, we welcome you with open arms and will guide you through every step."
+          a: "Absolutely. Whether this is your first time exploring holistic healing or you have been on this path for years, you are welcome here. We will guide you through every step at your own pace."
         }
       ]
     },
@@ -30,19 +30,19 @@ export default function FAQ() {
       items: [
         {
           q: "What services do you offer?",
-          a: "We offer a range of services including General Acupuncture, Pain Management, Stress Relief Sessions, and Cupping Therapy. Each service is tailored to support your personal growth and wellbeing. Visit our Services page to learn more about each offering."
+          a: "We offer acupuncture-based treatments covering pain management, stress relief and a wide range of conditions including hormonal, digestive and immunity concerns. Each session is tailored to your specific needs."
         },
         {
           q: "How do I book an appointment?",
-          a: "You can easily book an appointment through our online booking system by clicking 'Book Now' on our website. Select your preferred service, date, and time. You'll receive a confirmation email with all the details."
+          a: "Simply click 'Book Now' on our website. Choose your preferred service, date and time. You will receive a confirmation email with everything you need."
         },
         {
           q: "What is the duration of each session?",
-          a: "Session durations vary by service. General Acupuncture and Pain Management sessions are typically 60 minutes, while Stress Relief and Cupping Therapy are 30 minutes. The exact duration will be clear when you book."
+          a: "Session length varies depending on your treatment. We will always be clear about timing when you book, so there are no surprises."
         },
         {
           q: "Can I reschedule or cancel my appointment?",
-          a: "Yes, you can reschedule or cancel your appointment through our Manage Booking page. We recommend notifying us at least 24 hours before your scheduled appointment for a smooth rescheduling process."
+          a: "Yes. You can reschedule or cancel through our Manage Booking page at any time. We appreciate at least 24 hours notice so we can offer your slot to someone else."
         }
       ]
     },
@@ -51,19 +51,19 @@ export default function FAQ() {
       items: [
         {
           q: "What should I expect during my first session?",
-          a: "During your first session, we'll start with a consultation to understand your health history, concerns, and goals. This helps us personalize your treatment. You'll then experience our healing modality in a comfortable, peaceful environment. We encourage you to relax and be open to the healing process."
+          a: "We begin with a brief consultation to understand your health history, concerns and goals. This helps us plan the right treatment for you. From there, you will experience your session in a calm, comfortable environment. Just relax and let the process work."
         },
         {
           q: "Are your treatments scientifically proven?",
-          a: "Our services are based on traditional healing practices combined with modern wellness approaches. While our focus is on holistic wellness, we encourage you to discuss any medical concerns with your healthcare provider before booking."
+          a: "Our work is rooted in traditional healing practices that have been used for centuries. We also stay informed by current wellness research. If you have specific medical concerns, we always encourage you to speak with your healthcare provider as well."
         },
         {
           q: "Is acupuncture painful?",
-          a: "Most people find acupuncture to be a gentle and relaxing experience. The needles are very thin, and any sensation is usually minimal. You may feel a slight pressure or warmth at the acupuncture points, which is normal. Our practitioners are trained to ensure your comfort."
+          a: "Most people find it surprisingly gentle. The needles are very fine, and any sensation is usually just a light pressure or warmth at the treatment points. Our practitioners are experienced and will ensure you are comfortable throughout."
         },
         {
           q: "How many sessions will I need?",
-          a: "The number of sessions depends on your individual situation and goals. Some people benefit from a single session, while others find that a series of treatments provides more lasting results. We'll discuss the best approach for you during your consultation."
+          a: "It depends on your condition and goals. Some people feel significant improvement after a few sessions, while others benefit from a structured program over time. We will discuss the best approach for you during your first visit."
         }
       ]
     },
@@ -72,15 +72,15 @@ export default function FAQ() {
       items: [
         {
           q: "How can I contact you if I have questions?",
-          a: "You can reach us via phone at +91 70253 98998, visit us in person at our Mattancherry location, or use the contact form on our website. You can also message us on Instagram (@aj_instaheal_) or Facebook for quick inquiries."
+          a: "You can call us at +91 70253 98998, visit us in Mattancherry, or use the contact form on our website. We are also reachable on Instagram (@aj_instaheal_) and Facebook for quick questions."
         },
         {
           q: "Do you offer consultations before booking?",
-          a: "Yes! If you'd like to discuss your health concerns or learn more about our services before booking, please contact us. We're happy to answer any questions and help you find the right service for your needs."
+          a: "Yes. If you would like to talk through your concerns before committing to a session, just reach out. We are happy to help you figure out the right next step."
         },
         {
           q: "What is your cancellation policy?",
-          a: "We understand that life happens! You can cancel or reschedule your appointment anytime through our Manage Booking page. We appreciate at least 24 hours notice to help us serve other clients better."
+          a: "Life happens, and we understand that. Cancel or reschedule anytime through our Manage Booking page. We just ask for at least 24 hours notice when possible so we can accommodate other patients."
         }
       ]
     }
@@ -119,7 +119,7 @@ export default function FAQ() {
             "We treat people, not diseases."
           </p>
           <p className="text-muted-foreground mt-3 sm:mt-4 max-w-2xl mx-auto px-2 text-sm md:text-base">
-            This philosophy guides every interaction and treatment at AJ Insta Heal. We believe in holistic healing that addresses the whole person—mind, body, and spirit.
+            This guides everything we do at AJ Insta Heal. Real healing means caring for the whole person: mind, body and spirit.
           </p>
         </div>
       </section>
@@ -198,7 +198,7 @@ export default function FAQ() {
             Still Have Questions?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-            Feel free to reach out to us directly. We're here to help and guide you on your healing journey.
+            Reach out any time. We are always happy to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" asChild>
@@ -212,7 +212,7 @@ export default function FAQ() {
                 size="lg"
                 className="rounded-full border-white/10 hover:bg-white/5"
               >
-                Book an Appointment
+                Book Now
               </Button>
             </Link>
           </div>

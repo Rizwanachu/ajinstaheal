@@ -23,7 +23,7 @@ export default function About() {
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 text-white">About AJ Insta Heal</h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-            A sanctuary for healing in the heart of Mattancherry, dedicated to guiding individuals towards spiritual wellness and inner harmony.
+            A sanctuary for healing in the heart of Mattancherry, dedicated to guiding people toward wellness and inner harmony.
           </p>
         </motion.div>
       </div>
@@ -39,10 +39,10 @@ export default function About() {
           >
             <h3 className="text-primary font-display text-2xl mb-4">Our Philosophy</h3>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief, but focusing on the underlying reason leads to a more complete cure.
+              The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief. Focusing on the underlying reason leads to a more complete cure.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Acupuncture is a powerful approach that targets the source, restoring balance to mind, body, and spirit. We believe that every individual has an innate capacity for healing — our role is to facilitate that process.
+              Acupuncture targets the source, restoring balance to mind, body and spirit. Every individual has an innate capacity for healing. Our role is simply to support that process.
             </p>
 
             <h3 className="text-primary font-display text-2xl mt-8 mb-4">Our Location</h3>

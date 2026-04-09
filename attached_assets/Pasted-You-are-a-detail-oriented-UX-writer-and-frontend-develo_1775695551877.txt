@@ -1,0 +1,103 @@
+You are a detail-oriented UX writer and frontend developer.
+
+Clean and refine ALL text content across my website “AJ Insta Heal”.
+
+-----------------------
+GLOBAL TEXT CLEANUP
+-----------------------
+Remove or minimize unnecessary punctuation that hurts readability, specifically:
+
+- Remove em dashes (—)
+- Remove excessive commas
+- Remove unnecessary full stops in short UI text
+- Avoid broken or robotic sentence flow
+- Keep sentences natural and smooth
+
+DO NOT:
+- Remove punctuation where it is grammatically required
+- Break meaning or clarity
+
+GOAL:
+Make the content feel:
+- Calm
+- Premium
+- Human
+- Easy to read
+
+-----------------------
+REWRITE STYLE
+-----------------------
+Rewrite text where needed using:
+
+- Short, clear sentences
+- Natural conversational tone
+- No robotic phrasing
+- No over-formal wording
+
+Examples:
+
+
+
+BAD:
+“Select a time that works best for your healing session.”
+GOOD:
+“Choose a time that feels right for you”
+
+-----------------------
+UI TEXT RULES
+-----------------------
+Buttons:
+- Keep them clean and minimal
+Example:
+“Book Appointment” → “Book Now”
+
+Forms:
+- Simple and friendly labels
+Example:
+“Enter your full name” → “Your name”
+
+Error messages:
+- Calm and helpful tone
+Example:
+“Invalid input.” → “Please check your details and try again”
+
+-----------------------
+APPLY TO ALL PAGES
+-----------------------
+- Home
+- About
+- Services
+- FAQ
+- Booking flow
+- Emails
+- Dashboard
+- Contact page
+
+-----------------------
+EMAIL CLEANUP
+-----------------------
+Make emails feel personal and warm:
+
+- Remove stiff or robotic phrasing
+- Keep it short and clear
+- Friendly tone
+
+Example:
+
+BAD:
+“Your appointment has been successfully confirmed.”
+GOOD:
+“You’re booked. We look forward to seeing you”
+
+-----------------------
+FINAL GOAL
+-----------------------
+The entire website should feel:
+
+- Clean
+- Soft
+- Premium
+- Human
+- Effortless to read
+
+Do not change functionality. Only improve text and readability.

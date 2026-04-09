@@ -60,7 +60,7 @@ export default function Contact() {
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-6">Get in Touch</h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
-            Have questions? We're here to help you on your journey.
+            We're here and happy to help.
           </p>
         </motion.div>
 

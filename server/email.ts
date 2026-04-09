@@ -141,10 +141,10 @@ export function createConfirmationEmailHtml(
           
           <div class="content">
             <p>Hi <strong>${customerName}</strong>,</p>
-            <p>Thank you for booking with AJ Insta Heal. Your appointment has been confirmed and we're looking forward to seeing you!</p>
+            <p>You're booked. We look forward to seeing you at AJ Insta Heal.</p>
             
             <div class="details">
-              <h3 style="margin-top: 0; color: #d4af37;">Appointment Details</h3>
+              <h3 style="margin-top: 0; color: #d4af37;">Your Appointment</h3>
               ${bookingId ? `<div class="detail-row">
                 <span class="detail-label">Booking ID</span>
                 <span class="detail-value" style="font-weight: bold; font-size: 16px;">${bookingId}</span>
@@ -163,8 +163,8 @@ export function createConfirmationEmailHtml(
               </div>
             </div>
             
-            <p>You can manage your booking (reschedule or cancel) using the link below:</p>
-            <a href="${manageLink}" class="button">Manage Your Booking</a>
+            <p>Need to reschedule or cancel? Use the link below any time.</p>
+            <a href="${manageLink}" class="button">Manage Booking</a>
             
             <p style="margin-top: 20px; color: #666; font-size: 14px;">
               <strong>📍 Location:</strong> Mattancherry, Ernakulam, Kerala, India<br>
@@ -190,8 +190,8 @@ export function createReminderEmailHtml(
 ): string {
   const reminderText =
     hoursUntilAppointment <= 24
-      ? "Your appointment is coming up very soon!"
-      : `Your appointment is in ${hoursUntilAppointment} hours.`;
+      ? "Just a heads up — your session is coming up soon."
+      : `A friendly reminder that your session is in ${hoursUntilAppointment} hours.`;
 
   return `
     <!DOCTYPE html>
@@ -219,10 +219,10 @@ export function createReminderEmailHtml(
           
           <div class="content">
             <p>Hi <strong>${customerName}</strong>,</p>
-            <p>${reminderText}</p>
+            <p>${reminderText} We look forward to seeing you.</p>
             
             <div class="details">
-              <h3 style="margin-top: 0; color: #d4af37;">Appointment Details</h3>
+              <h3 style="margin-top: 0; color: #d4af37;">Your Appointment</h3>
               <div class="detail-row">
                 <span class="detail-label">Service</span>
                 <span class="detail-value">${serviceName}</span>

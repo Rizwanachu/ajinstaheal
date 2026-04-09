@@ -94,8 +94,8 @@ export default function Book() {
     <div className="pt-12 pb-24 min-h-screen bg-background text-white">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">Book Appointment</h1>
-          <p className="text-muted-foreground text-sm">Select a time that works best for your healing session</p>
+          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">Book a Session</h1>
+          <p className="text-muted-foreground text-sm">Choose a time that feels right for you</p>
         </div>
 
         {/* Step Indicator */}
@@ -163,7 +163,7 @@ export default function Book() {
                   </Button>
                   <h2 className="text-2xl font-display font-bold">Select Time</h2>
                 </div>
-                <p className="text-muted-foreground text-sm mb-6 ml-12">Select a time that works best for your healing session</p>
+                <p className="text-muted-foreground text-sm mb-6 ml-12">Choose a time that feels right for you</p>
 
                 {isLoadingAvailability ? (
                   <div className="flex justify-center p-12">
