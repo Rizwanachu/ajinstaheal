@@ -26,11 +26,18 @@ export default function DoctorLogin() {
         const data = await res.json();
         localStorage.setItem("doctorToken", data.token);
         setLocation("/doctor-dashboard");
-      } else {
+      } else if (res.status === 401) {
         toast({
           variant: "destructive",
           title: "Incorrect Password",
           description: "Please try again.",
+        });
+      } else {
+        const data = await res.json().catch(() => ({}));
+        toast({
+          variant: "destructive",
+          title: "Server Error",
+          description: data.message || "Unable to connect. Please check server configuration.",
         });
       }
     } catch (error) {
