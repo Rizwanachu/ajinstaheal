@@ -19,7 +19,7 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
