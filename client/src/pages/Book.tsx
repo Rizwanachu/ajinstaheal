@@ -91,26 +91,26 @@ export default function Book() {
   const eveningSlots = availability?.slots.filter(s => parseInt(s.split(":")[0]) >= 12) ?? [];
 
   return (
-    <div className="pt-12 pb-24 min-h-screen bg-background text-white">
+    <div className="pt-12 pb-24 min-h-screen bg-background">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">Book a Session</h1>
+          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2 text-foreground">Book a Session</h1>
           <p className="text-muted-foreground text-sm">Choose a time that feels right for you</p>
         </div>
 
         {/* Step Indicator */}
         <div className="flex justify-between mb-10 relative">
-          <div className="absolute top-4 left-0 w-full h-0.5 bg-white/10 -z-10" />
+          <div className="absolute top-4 left-0 w-full h-0.5 bg-border -z-10" />
           {STEPS.map((step, idx) => (
             <div key={idx} className="flex flex-col items-center gap-2 bg-background px-4">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
-                currentStep > idx ? "bg-primary border-primary text-black" :
+                currentStep > idx ? "bg-primary border-primary text-primary-foreground" :
                 currentStep === idx ? "bg-background border-primary text-primary shadow-lg shadow-primary/20" :
-                "bg-background border-white/20 text-muted-foreground"
+                "bg-background border-border text-muted-foreground"
               }`}>
                 {currentStep > idx ? <CheckCircle2 className="w-5 h-5" /> : idx + 1}
               </div>
-              <span className={`text-xs uppercase font-medium tracking-wider ${currentStep >= idx ? "text-white" : "text-muted-foreground"}`}>
+              <span className={`text-xs uppercase font-medium tracking-wider ${currentStep >= idx ? "text-foreground" : "text-muted-foreground"}`}>
                 {step}
               </span>
             </div>
@@ -135,20 +135,20 @@ export default function Book() {
           </div>
         )}
 
-        <div className="bg-card border border-white/5 rounded-2xl p-6 sm:p-8 min-h-[420px]">
+        <div className="bg-card border border-border rounded-2xl p-6 sm:p-8 min-h-[420px]">
           <AnimatePresence mode="wait">
             {/* Step 0 - Date */}
             {currentStep === 0 && (
               <motion.div key="step0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
-                <h2 className="text-2xl font-display font-bold mb-2">Select Date</h2>
+                <h2 className="text-2xl font-display font-bold mb-2 text-foreground">Select Date</h2>
                 <p className="text-muted-foreground text-sm mb-6">Clinic is open every day of the week</p>
-                <div className="bg-background rounded-xl p-4 border border-white/10">
+                <div className="bg-background rounded-xl p-4 border border-border">
                   <DayPicker
                     mode="single"
                     selected={selectedDate}
                     onSelect={handleDateSelect}
                     fromDate={addDays(new Date(), 1)}
-                    modifiersClassNames={{ selected: "bg-primary text-black" }}
+                    modifiersClassNames={{ selected: "bg-primary text-primary-foreground" }}
                   />
                 </div>
               </motion.div>
@@ -161,7 +161,7 @@ export default function Book() {
                   <Button variant="ghost" size="icon" onClick={() => setCurrentStep(0)} className="shrink-0">
                     <ChevronLeft className="w-5 h-5" />
                   </Button>
-                  <h2 className="text-2xl font-display font-bold">Select Time</h2>
+                  <h2 className="text-2xl font-display font-bold text-foreground">Select Time</h2>
                 </div>
                 <p className="text-muted-foreground text-sm mb-6 ml-12">Choose a time that feels right for you</p>
 
@@ -186,7 +186,7 @@ export default function Book() {
                             <button
                               key={slot}
                               onClick={() => handleTimeSelect(slot)}
-                              className="py-4 px-2 rounded-xl border border-white/10 hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95"
+                              className="py-4 px-2 rounded-xl border border-border hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95 text-foreground"
                             >
                               {formatTimeDisplay(slot)}
                             </button>
@@ -202,7 +202,7 @@ export default function Book() {
                             <button
                               key={slot}
                               onClick={() => handleTimeSelect(slot)}
-                              className="py-4 px-2 rounded-xl border border-white/10 hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95"
+                              className="py-4 px-2 rounded-xl border border-border hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95 text-foreground"
                             >
                               {formatTimeDisplay(slot)}
                             </button>
@@ -222,7 +222,7 @@ export default function Book() {
                   <Button variant="ghost" size="icon" onClick={() => setCurrentStep(1)} className="shrink-0">
                     <ChevronLeft className="w-5 h-5" />
                   </Button>
-                  <h2 className="text-2xl font-display font-bold">Your Details</h2>
+                  <h2 className="text-2xl font-display font-bold text-foreground">Your Details</h2>
                 </div>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -230,7 +230,7 @@ export default function Book() {
                       <FormItem>
                         <FormLabel>Full Name</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="Your full name" className="bg-background border-white/10 h-12" />
+                          <Input {...field} placeholder="Your full name" className="bg-background border-border h-12" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -239,7 +239,7 @@ export default function Book() {
                       <FormItem>
                         <FormLabel>Email Address</FormLabel>
                         <FormControl>
-                          <Input {...field} type="email" placeholder="your@email.com" className="bg-background border-white/10 h-12" />
+                          <Input {...field} type="email" placeholder="your@email.com" className="bg-background border-border h-12" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -248,7 +248,7 @@ export default function Book() {
                       <FormItem>
                         <FormLabel>Phone Number</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="+91 00000 00000" className="bg-background border-white/10 h-12" />
+                          <Input {...field} placeholder="+91 00000 00000" className="bg-background border-border h-12" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -257,7 +257,7 @@ export default function Book() {
                       <FormItem>
                         <FormLabel>Health Concern or Notes <span className="text-muted-foreground font-normal">(Optional)</span></FormLabel>
                         <FormControl>
-                          <Textarea {...field} placeholder="Briefly describe your concern or any special requirements..." className="bg-background border-white/10 min-h-[100px]" />
+                          <Textarea {...field} placeholder="Briefly describe your concern or any special requirements..." className="bg-background border-border min-h-[100px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -289,11 +289,11 @@ export default function Book() {
                   transition={{ delay: 0.2, type: "spring", stiffness: 200, damping: 12 }}
                   className="w-24 h-24 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center mx-auto mb-6"
                 >
-                  <CheckCircle2 className="w-12 h-12 text-green-400" />
+                  <CheckCircle2 className="w-12 h-12 text-green-500" />
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                  <h2 className="text-3xl font-display font-bold mb-3 text-white">Booking Confirmed!</h2>
+                  <h2 className="text-3xl font-display font-bold mb-3 text-foreground">Booking Confirmed!</h2>
                   <p className="text-muted-foreground mb-4">A confirmation email has been sent to you.</p>
 
                   <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-xl px-6 py-3 mb-8">
@@ -311,7 +311,7 @@ export default function Book() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Button variant="outline" className="rounded-full px-8 border-green-500/30 text-green-400 hover:bg-green-500/10 w-full">
+                      <Button variant="outline" className="rounded-full px-8 border-green-500/30 text-green-600 dark:text-green-400 hover:bg-green-500/10 w-full">
                         WhatsApp Us
                       </Button>
                     </a>
@@ -320,7 +320,7 @@ export default function Book() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Button variant="outline" className="rounded-full px-8 border-white/10 text-white w-full">
+                      <Button variant="outline" className="rounded-full px-8 border-border w-full">
                         Get Directions
                       </Button>
                     </a>

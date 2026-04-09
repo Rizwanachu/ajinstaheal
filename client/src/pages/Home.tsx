@@ -15,9 +15,9 @@ const healers = [
 
 const programPhases = [
   { phase: "Phase 1", duration: "11 Days", detail: "Continuous daily treatment sessions", color: "from-primary/30 to-primary/5" },
-  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "from-white/10 to-white/5", isBreak: true },
+  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "", isBreak: true },
   { phase: "Phase 2", duration: "5 Days", detail: "Continued targeted treatment", color: "from-primary/30 to-primary/5" },
-  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "from-white/10 to-white/5", isBreak: true },
+  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "", isBreak: true },
   { phase: "Phase 3", duration: "5 Days", detail: "Final consolidation treatment", color: "from-primary/30 to-primary/5" },
 ];
 
@@ -45,7 +45,7 @@ export default function Home() {
     <div className="overflow-hidden">
       {/* ─── Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[#0a0a0a]">
+        <div className="absolute inset-0 bg-background">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-50" />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[128px]" />
@@ -58,7 +58,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl mx-auto space-y-8"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/60 border border-border text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               <span>Holistic Healing & Spiritual Growth</span>
             </div>
@@ -73,7 +73,7 @@ export default function Home() {
               We guide you toward inner peace, wellness and spiritual awakening.
             </p>
 
-            <div className="text-white italic text-base sm:text-lg border-l-4 border-primary pl-5 py-3 bg-white/5 rounded-r-lg text-left max-w-xl mx-auto">
+            <div className="text-foreground italic text-base sm:text-lg border-l-4 border-primary pl-5 py-3 bg-muted/40 rounded-r-lg text-left max-w-xl mx-auto">
               "We treat people, not diseases."
             </div>
 
@@ -84,7 +84,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/about">
-                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 hover:border-primary/40 text-white min-w-[160px] transition-all duration-300">
+                <Button variant="outline" size="lg" className="rounded-full border-border hover:bg-muted/50 hover:border-primary/40 min-w-[160px] transition-all duration-300">
                   Learn More
                 </Button>
               </Link>
@@ -94,7 +94,7 @@ export default function Home() {
       </section>
 
       {/* ─── Philosophy ───────────────────────────────────────── */}
-      <section className="py-20 bg-card/30 relative">
+      <section className="py-20 bg-card relative">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -103,14 +103,14 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative aspect-square rounded-2xl overflow-hidden bg-white/5 border border-white/10 group">
+              <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted border border-border group">
                 <img
                   src="/healing.png"
                   alt="Acupuncture healing therapy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white font-display text-2xl">
                   Experience Holistic Healing
                 </div>
@@ -124,7 +124,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="space-y-6"
             >
-              <h2 className="text-4xl font-display font-bold text-white">Our Philosophy</h2>
+              <h2 className="text-4xl font-display font-bold text-foreground">Our Philosophy</h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
                 The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief. Focusing on the underlying reason leads to a more complete cure.
               </p>
@@ -139,7 +139,7 @@ export default function Home() {
                   "Peaceful and safe environment",
                   "Holistic approach to wellness",
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-white/90">
+                  <li key={i} className="flex items-center gap-3 text-foreground/90">
                     <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                       <Heart className="w-3 h-3 text-primary fill-current" />
                     </div>
@@ -159,7 +159,7 @@ export default function Home() {
       </section>
 
       {/* ─── Why Choose Us ────────────────────────────────────── */}
-      <section className="py-20 border-y border-white/5">
+      <section className="py-20 border-y border-border">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeUp}
@@ -168,7 +168,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Why Choose AJ Insta Heal</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Why Choose AJ Insta Heal</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Time-tested healing practices paired with a genuine commitment to your well-being.
             </p>
@@ -183,12 +183,12 @@ export default function Home() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-card border border-border rounded-2xl p-8 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary/20 transition-colors">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-display font-bold text-white mb-3">{item.title}</h3>
+                <h3 className="text-xl font-display font-bold text-foreground mb-3">{item.title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
               </motion.div>
             ))}
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       {/* ─── Services ─────────────────────────────────────────── */}
-      <section className="py-20 bg-card/20">
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeUp}
@@ -206,7 +206,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Services</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Our Services</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Focused treatments designed to restore your body's natural balance.
             </p>
@@ -221,10 +221,10 @@ export default function Home() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                className="bg-card border border-border rounded-2xl p-8 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
               >
                 <div className="text-3xl mb-4">{svc.icon}</div>
-                <h3 className="text-2xl font-display font-bold text-white mb-3">{svc.title}</h3>
+                <h3 className="text-2xl font-display font-bold text-foreground mb-3">{svc.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{svc.desc}</p>
               </motion.div>
             ))}
@@ -233,7 +233,7 @@ export default function Home() {
       </section>
 
       {/* ─── Our Healers ──────────────────────────────────────── */}
-      <section className="py-20 border-y border-white/5">
+      <section className="py-20 border-y border-border">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeUp}
@@ -242,7 +242,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Healers</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Our Healers</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Certified practitioners devoted to your healing and well-being.
             </p>
@@ -257,12 +257,12 @@ export default function Home() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="flex-1 bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 group"
+                className="flex-1 bg-card border border-border rounded-2xl p-8 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 group"
               >
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-5 text-2xl font-display font-bold text-primary group-hover:from-primary/40 transition-all">
                   {healer.initials}
                 </div>
-                <h3 className="text-xl font-display font-bold text-white mb-1">{healer.name}</h3>
+                <h3 className="text-xl font-display font-bold text-foreground mb-1">{healer.name}</h3>
                 <p className="text-primary text-sm font-medium">{healer.title}</p>
               </motion.div>
             ))}
@@ -271,7 +271,7 @@ export default function Home() {
       </section>
 
       {/* ─── Structured Healing Program ───────────────────────── */}
-      <section className="py-20 bg-card/20">
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeUp}
@@ -280,50 +280,48 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Structured Healing Program</h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Structured Healing Program</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               A proven three-phase approach that gives your body the space to heal deeply and restore lasting balance.
             </p>
           </motion.div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="relative">
-              <div className="space-y-4">
-                {programPhases.map((phase, i) => (
-                  <motion.div
-                    key={i}
-                    custom={i}
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className={`relative flex items-center gap-6 p-6 rounded-2xl border transition-all duration-300 ${
-                      phase.isBreak
-                        ? "border-white/5 bg-white/5"
-                        : "border-primary/20 bg-gradient-to-r from-primary/10 to-transparent hover:border-primary/40"
-                    }`}
-                  >
-                    <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center shrink-0 text-center ${
-                      phase.isBreak ? "bg-white/10" : "bg-primary/20"
-                    }`}>
-                      <span className={`text-xs font-bold uppercase tracking-wider ${phase.isBreak ? "text-muted-foreground" : "text-primary"}`}>
-                        {phase.phase}
-                      </span>
+            <div className="space-y-4">
+              {programPhases.map((phase, i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className={`relative flex items-center gap-6 p-6 rounded-2xl border transition-all duration-300 ${
+                    phase.isBreak
+                      ? "border-border bg-muted/40"
+                      : "border-primary/20 bg-gradient-to-r from-primary/10 to-transparent hover:border-primary/40"
+                  }`}
+                >
+                  <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center shrink-0 text-center ${
+                    phase.isBreak ? "bg-muted" : "bg-primary/20"
+                  }`}>
+                    <span className={`text-xs font-bold uppercase tracking-wider ${phase.isBreak ? "text-muted-foreground" : "text-primary"}`}>
+                      {phase.phase}
+                    </span>
+                  </div>
+                  <div>
+                    <p className={`text-xl font-display font-bold ${phase.isBreak ? "text-muted-foreground" : "text-foreground"}`}>
+                      {phase.duration}
+                    </p>
+                    <p className="text-muted-foreground text-sm mt-0.5">{phase.detail}</p>
+                  </div>
+                  {!phase.isBreak && (
+                    <div className="ml-auto">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className={`text-xl font-display font-bold ${phase.isBreak ? "text-white/60" : "text-white"}`}>
-                        {phase.duration}
-                      </p>
-                      <p className="text-muted-foreground text-sm mt-0.5">{phase.detail}</p>
-                    </div>
-                    {!phase.isBreak && (
-                      <div className="ml-auto">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
+                  )}
+                </motion.div>
+              ))}
             </div>
 
             <motion.div
@@ -333,7 +331,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-2xl text-center"
             >
-              <p className="text-white/80 text-sm leading-relaxed">
+              <p className="text-foreground/80 text-sm leading-relaxed">
                 Total Program: <span className="text-primary font-bold">21 treatment days</span> across 3 phases, with built-in rest periods so your body can absorb and integrate each stage of healing.
               </p>
             </motion.div>
@@ -342,7 +340,7 @@ export default function Home() {
       </section>
 
       {/* ─── Testimonials ─────────────────────────────────────── */}
-      <section className="py-20 border-y border-white/5">
+      <section className="py-20 border-y border-border">
         <div className="container mx-auto px-4">
           <motion.div
             variants={fadeUp}
@@ -351,7 +349,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-14"
           >
-            <h2 className="text-3xl font-display font-bold text-white mb-4">Healing Stories</h2>
+            <h2 className="text-3xl font-display font-bold text-foreground mb-4">Healing Stories</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Real words from people whose lives have been transformed.
             </p>
@@ -370,7 +368,7 @@ export default function Home() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="bg-card/60 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300"
+                className="bg-card p-8 rounded-2xl border border-border hover:border-primary/20 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex gap-1 text-primary mb-4">
                   {[...Array(review.stars)].map((_, j) => (
@@ -378,7 +376,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic mb-6 leading-relaxed">"{review.text}"</p>
-                <p className="text-white font-medium">{review.name}</p>
+                <p className="text-foreground font-medium">{review.name}</p>
               </motion.div>
             ))}
           </div>
@@ -397,8 +395,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Ready to Begin?</h2>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">Ready to Begin?</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Take the first step toward a more balanced, peaceful life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -408,7 +406,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button variant="outline" size="lg" className="rounded-full border-white/20 hover:bg-white/5 text-white px-10">
+                <Button variant="outline" size="lg" className="rounded-full border-border hover:bg-muted/50 px-10">
                   Contact Us <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>

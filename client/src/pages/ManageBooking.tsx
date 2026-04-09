@@ -13,8 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar, Clock, AlertCircle, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
-import { format, parse, addDays } from "date-fns";
+import { Calendar, Clock, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
+import { format, addDays } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useAvailability } from "@/hooks/use-bookings";
@@ -154,10 +154,10 @@ export default function ManageBooking() {
   return (
     <div className="pt-12 pb-24 min-h-screen bg-background">
       <div className="container mx-auto px-4 max-w-2xl">
-        <h1 className="text-4xl font-display font-bold text-center text-white mb-12">Manage Your Booking</h1>
+        <h1 className="text-4xl font-display font-bold text-center text-foreground mb-12">Manage Your Booking</h1>
 
         {!booking ? (
-          <div className="bg-card border border-white/5 rounded-2xl p-8">
+          <div className="bg-card border border-border rounded-2xl p-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onLookup)} className="space-y-6">
                 <FormField
@@ -167,7 +167,7 @@ export default function ManageBooking() {
                     <FormItem>
                       <FormLabel>Booking ID</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Enter your booking ID" className="bg-background border-white/10" />
+                        <Input {...field} placeholder="Enter your booking ID" className="bg-background border-border" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -180,7 +180,7 @@ export default function ManageBooking() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input {...field} type="email" placeholder="Your email address" className="bg-background border-white/10" />
+                        <Input {...field} type="email" placeholder="Your email address" className="bg-background border-border" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -205,34 +205,34 @@ export default function ManageBooking() {
               </div>
             )}
 
-            <div className="bg-card border border-white/5 rounded-2xl p-8">
-              <h2 className="text-2xl font-display font-bold text-white mb-6">Booking Details</h2>
+            <div className="bg-card border border-border rounded-2xl p-8">
+              <h2 className="text-2xl font-display font-bold text-foreground mb-6">Booking Details</h2>
               <div className="space-y-4 mb-6">
-                <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                   <Calendar className="w-5 h-5 text-primary" />
                   <div>
                     <span className="text-xs text-muted-foreground">Date</span>
-                    <p className="text-white font-medium">{booking.date}</p>
+                    <p className="text-foreground font-medium">{booking.date}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
                   <Clock className="w-5 h-5 text-primary" />
                   <div>
                     <span className="text-xs text-muted-foreground">Time</span>
-                    <p className="text-white font-medium">{formatTimeDisplay(booking.time)}</p>
+                    <p className="text-foreground font-medium">{formatTimeDisplay(booking.time)}</p>
                   </div>
                 </div>
-                <div className="p-3 bg-background/50 rounded-lg">
+                <div className="p-3 bg-muted/50 rounded-lg">
                   <span className="text-xs text-muted-foreground">Customer</span>
-                  <p className="text-white font-medium">{booking.customerName}</p>
+                  <p className="text-foreground font-medium">{booking.customerName}</p>
                 </div>
-                <div className="p-3 bg-background/50 rounded-lg">
+                <div className="p-3 bg-muted/50 rounded-lg">
                   <span className="text-xs text-muted-foreground">Booking ID</span>
-                  <p className="text-white font-medium font-mono">{booking.bookingId}</p>
+                  <p className="text-foreground font-medium font-mono">{booking.bookingId}</p>
                 </div>
-                <div className="p-3 bg-background/50 rounded-lg">
+                <div className="p-3 bg-muted/50 rounded-lg">
                   <span className="text-xs text-muted-foreground">Status</span>
-                  <p className={`text-white font-medium capitalize ${booking.status === 'cancelled' ? 'text-red-400' : 'text-green-400'}`}>{booking.status}</p>
+                  <p className={`font-medium capitalize ${booking.status === 'cancelled' ? 'text-red-400' : 'text-green-500'}`}>{booking.status}</p>
                 </div>
               </div>
 
@@ -249,9 +249,9 @@ export default function ManageBooking() {
               )}
 
               {showRescheduleForm && booking.status !== "cancelled" && (
-                <div className="space-y-6 mt-8 pt-6 border-t border-white/5">
-                  <h3 className="font-bold text-white">Select New Date & Time</h3>
-                  <div className="bg-background rounded-xl p-4 border border-white/10">
+                <div className="space-y-6 mt-8 pt-6 border-t border-border">
+                  <h3 className="font-bold text-foreground">Select New Date & Time</h3>
+                  <div className="bg-background rounded-xl p-4 border border-border">
                     <DayPicker
                       mode="single"
                       selected={rescheduledDate}
@@ -259,7 +259,7 @@ export default function ManageBooking() {
                       fromDate={addDays(new Date(), 1)}
                       className="m-0"
                       modifiersClassNames={{
-                        selected: "bg-primary text-black hover:bg-primary/90 rounded-md",
+                        selected: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-md",
                       }}
                       disabled={(date) => {
                         const tomorrow = addDays(new Date(), 1);
@@ -282,17 +282,17 @@ export default function ManageBooking() {
                               onClick={() => setRescheduledTime(slot)}
                               className={`py-2 px-2 rounded-lg border text-sm font-medium transition-all ${
                                 rescheduledTime === slot
-                                  ? "border-primary bg-primary text-black"
-                                  : "border-white/10 hover:border-primary/50 text-white"
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : "border-border hover:border-primary/50 text-foreground"
                               }`}
                             >
                               {formatTimeDisplay(slot)}
                             </button>
                           ))
                         ) : availability ? (
-                          <p className="text-sm text-muted-foreground text-center py-4">No available slots for this date.</p>
+                          <p className="col-span-4 text-sm text-muted-foreground text-center py-4">No available slots for this date.</p>
                         ) : (
-                          <div className="flex justify-center py-4">
+                          <div className="col-span-4 flex justify-center py-4">
                             <Loader2 className="w-6 h-6 animate-spin text-primary" />
                           </div>
                         )}

@@ -28,7 +28,7 @@ function StickyBookCTA() {
   const [pathname] = useLocation();
   if (HIDE_CTA_PATHS.some(p => pathname.startsWith(p))) return null;
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-background/95 backdrop-blur-md border-t border-white/10 p-3 flex gap-3">
+    <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-background/95 backdrop-blur-md border-t border-border p-3 flex gap-3">
       <Link href="/book" className="flex-1">
         <button
           className="w-full bg-primary text-black font-bold rounded-full py-3 text-sm tracking-wide hover:bg-primary/90 transition-all"

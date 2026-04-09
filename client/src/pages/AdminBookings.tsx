@@ -2,8 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { format, isToday, isFuture, isPast, parseISO } from "date-fns";
 import {
   Loader2, LogOut, RefreshCw, Search, Download, Calendar,
-  Phone, User, Mail, MessageSquare, X, ChevronDown, BarChart3,
-  Clock, CheckCircle2, XCircle, Trash2
+  Phone, User, Mail, MessageSquare, X, BarChart3,
+  Clock, XCircle
 } from "lucide-react";
 import { useLocation } from "wouter";
 import { api } from "@shared/routes";
@@ -141,8 +141,8 @@ export default function AdminBookings() {
 
   const statusBadge = (status: string) =>
     status === "confirmed"
-      ? "bg-green-500/15 text-green-400 border border-green-500/20"
-      : "bg-red-500/15 text-red-400 border border-red-500/20";
+      ? "bg-green-500/15 text-green-600 dark:text-green-400 border border-green-500/20"
+      : "bg-red-500/15 text-red-600 dark:text-red-400 border border-red-500/20";
 
   if (isLoading) {
     return (
@@ -153,13 +153,13 @@ export default function AdminBookings() {
   }
 
   return (
-    <div className="pt-8 pb-24 min-h-screen bg-background text-white">
+    <div className="pt-8 pb-24 min-h-screen bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-display font-bold">Healer Dashboard</h1>
+            <h1 className="text-2xl sm:text-3xl font-display font-bold text-foreground">Healer Dashboard</h1>
             <p className="text-muted-foreground text-sm mt-1">Manage bookings and enquiries</p>
           </div>
           <div className="flex gap-2">
@@ -176,20 +176,20 @@ export default function AdminBookings() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: "Today", value: analytics.today, icon: <Clock className="w-5 h-5" />, color: "text-primary" },
-            { label: "Upcoming", value: analytics.upcoming, icon: <Calendar className="w-5 h-5" />, color: "text-blue-400" },
-            { label: "Cancelled", value: analytics.cancelled, icon: <XCircle className="w-5 h-5" />, color: "text-red-400" },
+            { label: "Upcoming", value: analytics.upcoming, icon: <Calendar className="w-5 h-5" />, color: "text-blue-500" },
+            { label: "Cancelled", value: analytics.cancelled, icon: <XCircle className="w-5 h-5" />, color: "text-red-500" },
             { label: "Total", value: analytics.total, icon: <BarChart3 className="w-5 h-5" />, color: "text-muted-foreground" },
           ].map(({ label, value, icon, color }) => (
-            <div key={label} className="bg-card border border-white/10 rounded-xl p-4">
+            <div key={label} className="bg-card border border-border rounded-xl p-4">
               <div className={`${color} mb-2`}>{icon}</div>
-              <p className="text-2xl font-bold font-display">{value}</p>
+              <p className="text-2xl font-bold font-display text-foreground">{value}</p>
               <p className="text-muted-foreground text-xs mt-0.5">{label}</p>
             </div>
           ))}
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-white/10 pb-0">
+        <div className="flex gap-2 mb-6 border-b border-border pb-0">
           {(["bookings", "enquiries"] as Tab[]).map(tab => (
             <button
               key={tab}
@@ -197,11 +197,11 @@ export default function AdminBookings() {
               className={`px-4 py-2 text-sm font-medium capitalize transition-all border-b-2 -mb-px ${
                 activeTab === tab
                   ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-white"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
               {tab}
-              <span className="ml-2 text-xs bg-white/10 rounded-full px-2 py-0.5">
+              <span className="ml-2 text-xs bg-muted rounded-full px-2 py-0.5">
                 {tab === "bookings" ? bookings.length : enquiries.length}
               </span>
             </button>
@@ -219,11 +219,11 @@ export default function AdminBookings() {
                   placeholder="Search by name, email, phone or booking ID..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="pl-9 bg-card border-white/10 h-10"
+                  className="pl-9 bg-card border-border h-10"
                 />
                 {search && (
                   <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <X className="w-4 h-4 text-muted-foreground hover:text-white" />
+                    <X className="w-4 h-4 text-muted-foreground hover:text-foreground" />
                   </button>
                 )}
               </div>
@@ -231,7 +231,7 @@ export default function AdminBookings() {
               <select
                 value={statusFilter}
                 onChange={e => setStatusFilter(e.target.value as StatusFilter)}
-                className="bg-card border border-white/10 text-sm rounded-lg px-3 h-10 text-white focus:outline-none focus:border-primary"
+                className="bg-card border border-border text-sm rounded-lg px-3 h-10 text-foreground focus:outline-none focus:border-primary"
               >
                 <option value="all">All Status</option>
                 <option value="confirmed">Confirmed</option>
@@ -241,7 +241,7 @@ export default function AdminBookings() {
               <select
                 value={dateFilter}
                 onChange={e => setDateFilter(e.target.value as DateFilter)}
-                className="bg-card border border-white/10 text-sm rounded-lg px-3 h-10 text-white focus:outline-none focus:border-primary"
+                className="bg-card border border-border text-sm rounded-lg px-3 h-10 text-foreground focus:outline-none focus:border-primary"
               >
                 <option value="all">All Dates</option>
                 <option value="today">Today</option>
@@ -275,13 +275,13 @@ export default function AdminBookings() {
                 {filteredBookings.map(booking => (
                   <div
                     key={booking.id}
-                    className="bg-card border border-white/10 rounded-xl p-5 hover:border-white/20 transition-colors"
+                    className="bg-card border border-border rounded-xl p-5 hover:border-primary/30 transition-colors"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                       {/* Left: Patient info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-2 flex-wrap">
-                          <p className="font-bold text-white">{booking.customerName}</p>
+                          <p className="font-bold text-foreground">{booking.customerName}</p>
                           <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusBadge(booking.status)}`}>
                             {booking.status}
                           </span>
@@ -294,7 +294,7 @@ export default function AdminBookings() {
                           <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" />{booking.customerPhone}</span>
                         </div>
                         {booking.comments && (
-                          <p className="mt-2 text-sm text-muted-foreground italic border-l-2 border-white/10 pl-3">
+                          <p className="mt-2 text-sm text-muted-foreground italic border-l-2 border-border pl-3">
                             {booking.comments}
                           </p>
                         )}
@@ -303,7 +303,7 @@ export default function AdminBookings() {
                       {/* Right: Date/time + actions */}
                       <div className="flex flex-col items-start sm:items-end gap-2 shrink-0">
                         <div className="text-right">
-                          <p className="font-medium text-white flex items-center gap-1.5 sm:justify-end">
+                          <p className="font-medium text-foreground flex items-center gap-1.5 sm:justify-end">
                             <Calendar className="w-4 h-4 text-muted-foreground" />
                             {format(parseISO(booking.date), "d MMM yyyy")}
                           </p>
@@ -316,7 +316,7 @@ export default function AdminBookings() {
                           <button
                             onClick={() => handleCancel(booking)}
                             disabled={cancellingId === booking.id}
-                            className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors disabled:opacity-50"
+                            className="text-xs text-red-500 hover:text-red-400 flex items-center gap-1 transition-colors disabled:opacity-50"
                           >
                             {cancellingId === booking.id
                               ? <Loader2 className="w-3 h-3 animate-spin" />
@@ -344,11 +344,11 @@ export default function AdminBookings() {
               </div>
             ) : (
               enquiries.slice().reverse().map(enquiry => (
-                <div key={enquiry.id} className="bg-card border border-white/10 rounded-xl p-5">
+                <div key={enquiry.id} className="bg-card border border-border rounded-xl p-5">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2 flex-wrap">
-                        <p className="font-bold text-white flex items-center gap-2">
+                        <p className="font-bold text-foreground flex items-center gap-2">
                           <User className="w-4 h-4 text-muted-foreground" />
                           {enquiry.name}
                         </p>
@@ -357,7 +357,7 @@ export default function AdminBookings() {
                         <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" />{enquiry.email}</span>
                         {enquiry.phone && <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" />{enquiry.phone}</span>}
                       </div>
-                      <p className="text-sm text-white/80 leading-relaxed bg-white/5 rounded-lg p-3">
+                      <p className="text-sm text-foreground/80 leading-relaxed bg-muted/50 rounded-lg p-3">
                         {enquiry.message}
                       </p>
                     </div>

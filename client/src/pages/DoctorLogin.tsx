@@ -47,14 +47,14 @@ export default function DoctorLogin() {
   return (
     <div className="pt-12 pb-24 min-h-screen bg-background flex items-center justify-center">
       <div className="w-full max-w-md px-4">
-        <div className="bg-card border border-white/5 rounded-2xl p-8">
+        <div className="bg-card border border-border rounded-2xl p-8">
           <div className="flex justify-center mb-6">
             <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
               <Lock className="w-8 h-8 text-primary" />
             </div>
           </div>
 
-          <h1 className="text-3xl font-display font-bold text-center text-white mb-2">Healer Portal</h1>
+          <h1 className="text-3xl font-display font-bold text-center text-foreground mb-2">Healer Portal</h1>
           <p className="text-center text-muted-foreground mb-8">Enter your password to access the dashboard</p>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -65,7 +65,7 @@ export default function DoctorLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
-                className="bg-background border-white/10"
+                className="bg-background border-border"
               />
             </div>
 

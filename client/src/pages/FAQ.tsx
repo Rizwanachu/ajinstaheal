@@ -90,7 +90,7 @@ export default function FAQ() {
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[#0a0a0a]">
+        <div className="absolute inset-0 bg-background">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-50" />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
         </div>
@@ -137,7 +137,7 @@ export default function FAQ() {
                 transition={{ delay: sectionIdx * 0.1 }}
                 className="mb-12"
               >
-                <h2 className="text-3xl font-display font-bold text-white mb-8">
+                <h2 className="text-3xl font-display font-bold text-foreground mb-8">
                   {section.category}
                 </h2>
 
@@ -145,7 +145,7 @@ export default function FAQ() {
                   {section.items.map((item, itemIdx) => (
                     <div
                       key={itemIdx}
-                      className="border border-white/10 rounded-lg overflow-hidden bg-card/30 hover:border-primary/50 transition-colors"
+                      className="border border-border rounded-lg overflow-hidden bg-card hover:border-primary/50 transition-colors"
                     >
                       <button
                         onClick={() =>
@@ -155,9 +155,9 @@ export default function FAQ() {
                               : sectionIdx * 100 + itemIdx
                           )
                         }
-                        className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/5 transition-colors text-left"
+                        className="w-full px-6 py-4 flex items-center justify-between hover:bg-muted/50 transition-colors text-left"
                       >
-                        <span className="font-medium text-white text-lg">
+                        <span className="font-medium text-foreground text-lg">
                           {item.q}
                         </span>
                         <ChevronDown
@@ -175,7 +175,7 @@ export default function FAQ() {
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="border-t border-white/10 px-6 py-4 bg-white/5"
+                          className="border-t border-border px-6 py-4 bg-muted/40"
                         >
                           <p className="text-muted-foreground leading-relaxed">
                             {item.a}
@@ -192,9 +192,9 @@ export default function FAQ() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-card/50 border-t border-white/5">
+      <section className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-display font-bold text-white mb-6">
+          <h2 className="text-4xl font-display font-bold text-foreground mb-6">
             Still Have Questions?
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
@@ -210,7 +210,7 @@ export default function FAQ() {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full border-white/10 hover:bg-white/5"
+                className="rounded-full border-border hover:bg-muted/50"
               >
                 Book Now
               </Button>

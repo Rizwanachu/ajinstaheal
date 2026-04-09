@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Clock, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
@@ -58,7 +58,7 @@ export default function Contact() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-6">Get in Touch</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-6">Get in Touch</h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
             We're here and happy to help.
           </p>
@@ -72,13 +72,13 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="space-y-8"
           >
-            <div className="bg-card border border-white/5 rounded-2xl p-8 space-y-8">
+            <div className="bg-card border border-border rounded-2xl p-8 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">Visit Us</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Visit Us</h3>
                   <p className="text-muted-foreground">
                     Mattancherry, Ernakulam<br />
                     Kerala, India
@@ -91,7 +91,7 @@ export default function Contact() {
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">Call Us</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Call Us</h3>
                   <p className="text-muted-foreground">+91 70253 98998</p>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function Contact() {
                   <Clock className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white mb-2">Opening Hours</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Opening Hours</h3>
                   <p className="text-muted-foreground text-sm">Mon / Tue / Wed / Fri / Sat:</p>
                   <p className="text-muted-foreground text-sm mb-1">7:30 – 10:00 AM &amp; 4:30 – 7:30 PM</p>
                   <p className="text-muted-foreground text-sm">Thursday:</p>
@@ -112,7 +112,7 @@ export default function Contact() {
             </div>
 
             {/* Location Map */}
-            <a href="https://maps.app.goo.gl/fEgjpBbdRPoLiPTWA" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-white/5 h-48 sm:h-64 bg-secondary hover:opacity-80 transition-opacity">
+            <a href="https://maps.app.goo.gl/fEgjpBbdRPoLiPTWA" target="_blank" rel="noopener noreferrer" className="block rounded-2xl overflow-hidden border border-border h-48 sm:h-64 bg-secondary hover:opacity-80 transition-opacity">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3051.278457940428!2d76.25275243705494!3d9.960170502935783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08730039543d5d%3A0xc098983c7d8bcb2f!2sAJ%20INSTA%20HEAL%2C%20ACUPUNCTURE%20AND%20HOLISTIC%20WELLNESS%20CENTRE!5e0!3m2!1sen!2sin!4v1766343989436!5m2!1sen!2sin" 
                 width="100%" 
@@ -131,7 +131,7 @@ export default function Contact() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="bg-card border border-white/5 rounded-2xl p-8">
+            <div className="bg-card border border-border rounded-2xl p-8">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
@@ -141,7 +141,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your full name" {...field} className="bg-secondary/50 border-white/10" />
+                          <Input placeholder="Your full name" {...field} className="bg-secondary/50 border-border" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -154,7 +154,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="your@email.com" {...field} className="bg-secondary/50 border-white/10" />
+                          <Input placeholder="your@email.com" {...field} className="bg-secondary/50 border-border" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -167,7 +167,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Phone</FormLabel>
                         <FormControl>
-                          <Input placeholder="+91 000 000 0000" {...field} className="bg-secondary/50 border-white/10" />
+                          <Input placeholder="+91 000 000 0000" {...field} className="bg-secondary/50 border-border" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -180,7 +180,7 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Message</FormLabel>
                         <FormControl>
-                          <Textarea placeholder="How can we help you?" className="min-h-[120px] bg-secondary/50 border-white/10" {...field} />
+                          <Textarea placeholder="How can we help you?" className="min-h-[120px] bg-secondary/50 border-border" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

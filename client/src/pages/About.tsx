@@ -21,7 +21,7 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 text-white">About AJ Insta Heal</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 text-foreground">About AJ Insta Heal</h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed">
             A sanctuary for healing in the heart of Mattancherry, dedicated to guiding people toward wellness and inner harmony.
           </p>
@@ -35,7 +35,7 @@ export default function About() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="prose prose-invert prose-lg max-w-none"
+            className="prose dark:prose-invert prose-lg max-w-none"
           >
             <h3 className="text-primary font-display text-2xl mb-4">Our Philosophy</h3>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -57,7 +57,7 @@ export default function About() {
             transition={{ delay: 0.4 }}
             className="space-y-8"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-card border border-white/5">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-card border border-border">
               <img
                 src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?q=80&w=2070&auto=format&fit=crop"
                 alt="Healing Space"
@@ -67,19 +67,19 @@ export default function About() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-card/60 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-primary/30 transition-all flex flex-col items-center text-center">
+              <div className="bg-card p-6 rounded-xl border border-border hover:border-primary/30 transition-all flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
                   <Award className="w-6 h-6" />
                 </div>
-                <h4 className="font-bold text-white mb-2">Certified Experts</h4>
+                <h4 className="font-bold text-foreground mb-2">Certified Experts</h4>
                 <p className="text-sm text-muted-foreground">Professional guidance from experienced healers</p>
               </div>
 
-              <div className="bg-card/60 backdrop-blur-sm p-6 rounded-xl border border-white/5 hover:border-primary/30 transition-all flex flex-col items-center text-center">
+              <div className="bg-card p-6 rounded-xl border border-border hover:border-primary/30 transition-all flex flex-col items-center text-center">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
                   <Users className="w-6 h-6" />
                 </div>
-                <h4 className="font-bold text-white mb-2">Personal Care</h4>
+                <h4 className="font-bold text-foreground mb-2">Personal Care</h4>
                 <p className="text-sm text-muted-foreground">Tailored sessions focused entirely on you</p>
               </div>
             </div>
@@ -96,7 +96,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Healers</h2>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">Our Healers</h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
             Guided by dedicated practitioners who bring skill, compassion, and deep commitment to your healing journey.
           </p>
@@ -111,12 +111,12 @@ export default function About() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="flex-1 bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 group"
+              className="flex-1 bg-card border border-border rounded-2xl p-8 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 group"
             >
               <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-5 text-2xl font-display font-bold text-primary group-hover:from-primary/40 transition-all">
                 {healer.initials}
               </div>
-              <h3 className="text-xl font-display font-bold text-white mb-1">{healer.name}</h3>
+              <h3 className="text-xl font-display font-bold text-foreground mb-1">{healer.name}</h3>
               <p className="text-primary text-sm font-medium">{healer.title}</p>
             </motion.div>
           ))}
