@@ -287,9 +287,9 @@ export default function AdminBookings() {
             </Tooltip>
 
             {/* Calendar (placeholder) */}
-            <Tooltip label="Calendar view (coming soon)">
+            <Tooltip label="Calendar view">
               <button
-                onClick={() => toast({ title: "Calendar view coming soon" })}
+                onClick={() => setLocation("/calendar")}
                 data-testid="button-calendar"
                 className="h-8 w-8 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-muted hover:border-primary/40 text-muted-foreground hover:text-foreground transition-all duration-200"
               >

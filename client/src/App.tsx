@@ -15,6 +15,7 @@ import Book from "@/pages/Book";
 import ManageBooking from "@/pages/ManageBooking";
 import DoctorLogin from "@/pages/DoctorLogin";
 import AdminBookings from "@/pages/AdminBookings";
+import CalendarView from "@/pages/CalendarView";
 import FAQ from "@/pages/FAQ";
 import { Privacy, Terms, Disclaimer } from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
@@ -22,7 +23,7 @@ import { useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { ThemeProvider } from "@/hooks/use-theme";
 
-const HIDE_CTA_PATHS = ["/book", "/manage-booking", "/doctor-login", "/doctor-dashboard"];
+const HIDE_CTA_PATHS = ["/book", "/manage-booking", "/doctor-login", "/doctor-dashboard", "/calendar"];
 
 function StickyBookCTA() {
   const [pathname] = useLocation();
@@ -75,6 +76,7 @@ function Router() {
           <Route path="/manage-booking" component={ManageBooking} />
           <Route path="/doctor-login" component={DoctorLogin} />
           <Route path="/doctor-dashboard" component={AdminBookings} />
+          <Route path="/calendar" component={CalendarView} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />
           <Route path="/disclaimer" component={Disclaimer} />
