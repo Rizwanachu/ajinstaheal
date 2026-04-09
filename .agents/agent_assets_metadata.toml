@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "XALslbvdH68lxWrNuiaF7"
+uri = "file://client/public/hero-bg.png"
+type = "image"
+title = "healing clinic hero bg"
