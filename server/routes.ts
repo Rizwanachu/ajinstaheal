@@ -188,48 +188,56 @@ export async function registerRoutes(
       }
 
       const dayOfWeek = parse(date, "yyyy-MM-dd", new Date()).getDay();
+      // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
 
-      let startHour = 0;
-      let endHour = 0;
+      type Session = { startHour: number; startMin: number; endHour: number; endMin: number };
+      let sessions: Session[] = [];
 
-      // Working hours logic
-      if (dayOfWeek === 6) { // Saturday
-        startHour = 16;
-        endHour = 18;
-      } else if (dayOfWeek === 0) { // Sunday
-        startHour = 8;
-        endHour = 10;
-      } else { // Mon-Fri
-        startHour = 16;
-        endHour = 18;
+      if (dayOfWeek === 0) { // Sunday: 08:00–10:00
+        sessions = [{ startHour: 8, startMin: 0, endHour: 10, endMin: 0 }];
+      } else if (dayOfWeek === 4) { // Thursday: 07:30–10:00 and 16:00–18:00
+        sessions = [
+          { startHour: 7, startMin: 30, endHour: 10, endMin: 0 },
+          { startHour: 16, startMin: 0, endHour: 18, endMin: 0 },
+        ];
+      } else { // Mon, Tue, Wed, Fri, Sat: 07:30–10:00 and 16:30–19:30
+        sessions = [
+          { startHour: 7, startMin: 30, endHour: 10, endMin: 0 },
+          { startHour: 16, startMin: 30, endHour: 19, endMin: 30 },
+        ];
       }
-
-      const slots: string[] = [];
-      let currentTime = parse(`${date} ${startHour}:00`, "yyyy-MM-dd H:mm", new Date());
-      const endTime = parse(`${date} ${endHour}:00`, "yyyy-MM-dd H:mm", new Date());
 
       const existingBookings = await storage.getBookingsByDate(date);
       const blockedDatesForDate = await db.select().from(blockedDates).where(eq(blockedDates.date, date));
       const timeBlock = blockedDatesForDate.filter(b => b.startTime && b.endTime);
 
-      while (isBefore(currentTime, endTime)) {
-        const slotEnd = addMinutes(currentTime, 60); // Default 60 min slots
-        
-        if (isAfter(slotEnd, endTime) && !isEqual(slotEnd, endTime)) {
-          break;
-        }
+      const slots: string[] = [];
 
-        const timeString = format(currentTime, "HH:mm");
-        const isTaken = existingBookings.some(booking => booking.status === "confirmed" && booking.time === timeString);
-        const isBlocked = timeBlock && timeBlock.some(block => 
-          block.startTime && block.endTime && timeString >= block.startTime && timeString < block.endTime
+      for (const session of sessions) {
+        let currentTime = parse(
+          `${date} ${session.startHour}:${String(session.startMin).padStart(2, "0")}`,
+          "yyyy-MM-dd H:mm",
+          new Date()
+        );
+        const endTime = parse(
+          `${date} ${session.endHour}:${String(session.endMin).padStart(2, "0")}`,
+          "yyyy-MM-dd H:mm",
+          new Date()
         );
 
-        if (!isTaken && !isBlocked) {
-          slots.push(timeString);
-        }
+        while (isBefore(currentTime, endTime)) {
+          const slotEnd = addMinutes(currentTime, 30);
+          if (isAfter(slotEnd, endTime) && !isEqual(slotEnd, endTime)) break;
 
-        currentTime = addMinutes(currentTime, 30); // 30 min intervals
+          const timeString = format(currentTime, "HH:mm");
+          const isTaken = existingBookings.some(b => b.status === "confirmed" && b.time === timeString);
+          const isBlockedSlot = timeBlock.some(block =>
+            block.startTime && block.endTime && timeString >= block.startTime && timeString < block.endTime
+          );
+
+          if (!isTaken && !isBlockedSlot) slots.push(timeString);
+          currentTime = addMinutes(currentTime, 30);
+        }
       }
 
       res.json({ date, slots });

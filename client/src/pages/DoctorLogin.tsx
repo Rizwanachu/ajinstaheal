@@ -54,7 +54,7 @@ export default function DoctorLogin() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-display font-bold text-center text-white mb-2">Doctor Portal</h1>
+          <h1 className="text-3xl font-display font-bold text-center text-white mb-2">Healer Portal</h1>
           <p className="text-center text-muted-foreground mb-8">Enter your password to access the dashboard</p>
 
           <form onSubmit={handleLogin} className="space-y-4">

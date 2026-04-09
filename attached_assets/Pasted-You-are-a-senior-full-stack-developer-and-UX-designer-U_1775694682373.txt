@@ -1,0 +1,171 @@
+You are a senior full-stack developer and UX designer.
+
+Update and improve my existing acupuncture clinic website “AJ Insta Heal” with the following changes. Maintain the current premium dark aesthetic (black + gold), smooth animations, and minimal luxury design.
+
+-----------------------
+1. CLINIC HOURS UPDATE
+-----------------------
+Update all references (Booking system, Contact page, availability logic) to reflect NEW timings:
+
+Clinic is open EVERY DAY.
+
+Monday:
+07:30 AM – 10:00 AM
+04:30 PM – 07:30 PM
+
+Tuesday:
+07:30 AM – 10:00 AM
+04:30 PM – 07:30 PM
+
+Wednesday:
+07:30 AM – 10:00 AM
+04:30 PM – 07:30 PM
+
+Thursday:
+07:30 AM – 10:00 AM
+04:00 PM – 06:00 PM
+
+Friday:
+07:30 AM – 10:00 AM
+04:30 PM – 07:30 PM
+
+Saturday:
+07:30 AM – 10:00 AM
+04:30 PM – 07:30 PM
+
+Sunday:
+08:00 AM – 10:00 AM
+
+IMPORTANT:
+- Booking system must dynamically reflect these time slots
+- Remove old Mon–Sat / Sunday logic
+- Show only valid slots per day
+- Keep 30-minute interval booking system
+
+-----------------------
+2. TERMINOLOGY UPDATE
+-----------------------
+Replace all instances of:
+- "Doctor" → "Healer"
+- "Doctor Login" → "Healer Login"
+- "Doctor Dashboard" → "Healer Dashboard"
+
+Ensure consistency across:
+- UI labels
+- Emails
+- Admin panel
+- Booking confirmations
+
+-----------------------
+3. HEALERS SECTION
+-----------------------
+Add a new section (Homepage + About page):
+
+Title: “Our Healers”
+
+Healers:
+- HR Jinas T N
+- HR Aasiya Mansoor
+
+Design:
+- Minimal premium cards
+- Soft glow or glass effect
+- Optional placeholder profile images
+- Short subtitle: “Certified Acupuncture Healer”
+
+-----------------------
+4. PHILOSOPHY UPDATE
+-----------------------
+Replace or enhance existing philosophy text with:
+
+“The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief, but focusing on the underlying reason leads to a more complete cure. Acupuncture is a powerful approach that targets the source, restoring balance to mind, body, and spirit.”
+
+Keep tone calm, premium, and spiritual.
+
+-----------------------
+5. SERVICES UPDATE
+-----------------------
+Simplify services to:
+
+- Pain Management
+- Acupuncture (for all conditions)
+
+Update services section UI:
+- Clean icons or minimal cards
+- Short descriptions
+
+-----------------------
+6. ACUPUNCTURE PROGRAM SECTION
+-----------------------
+Add a dedicated section explaining treatment structure:
+
+Title: “Structured Healing Program”
+
+Content:
+
+Phase 1:
+11 days continuous treatment
+
+Break:
+6 days rest
+
+Phase 2:
+5 days continuous treatment
+
+Break:
+6 days rest
+
+Phase 3:
+5 days continuous treatment
+
+Design:
+- Timeline or step-based visual flow
+- Soft animations on scroll
+
+-----------------------
+7. BOOKING UX IMPROVEMENTS
+-----------------------
+Enhance booking experience:
+
+- Show “Available Slots” clearly per selected date
+- Add microcopy:
+  “Select a time that works best for your healing session”
+- Add success animation after booking
+- Improve mobile usability (bigger tap targets)
+
+-----------------------
+8. PREMIUM UI IMPROVEMENTS
+-----------------------
+Refine visuals:
+
+- Add subtle gold gradient glow on buttons
+- Improve hover states (soft scaling + glow)
+- Add slight blur/glass effect to cards
+- Smoothen animation timing (ease-in-out)
+
+-----------------------
+9. TRUST ELEMENTS
+-----------------------
+Add:
+
+- “Why Choose Us” section:
+  - Root-cause healing
+  - Personalized care
+  - Natural & non-invasive approach
+
+- Add small testimonial placeholder section
+
+-----------------------
+10. PERFORMANCE
+-----------------------
+- Optimize animations for smooth performance
+- Lazy load non-critical elements
+- Keep high-quality visuals without heavy lag
+
+-----------------------
+OUTPUT REQUIREMENTS
+-----------------------
+- Do not break existing functionality
+- Keep booking system fully working
+- Maintain clean, modular code
+- Ensure responsiveness across all devices

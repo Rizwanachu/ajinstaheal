@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, Calendar, Clock, CheckCircle2, ChevronLeft } from "lucide-react";
+import { Loader2, CheckCircle2, ChevronLeft, Clock, Calendar, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const STEPS = ["Date", "Time", "Details"];
@@ -29,12 +29,12 @@ export default function Book() {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
-  
+
   const { data: availability, isLoading: isLoadingAvailability } = useAvailability(
     selectedDate ? format(selectedDate, "yyyy-MM-dd") : undefined,
     undefined
   );
-  
+
   const { toast } = useToast();
   const createBooking = useCreateBooking();
   const [bookingId, setBookingId] = useState<string | null>(null);
@@ -61,33 +61,22 @@ export default function Book() {
 
   const onSubmit = (data: BookingFormData) => {
     if (!selectedDate || !selectedTime) {
-      toast({
-        variant: "destructive",
-        title: "Missing Information",
-        description: "Please select a date and time.",
-      });
+      toast({ variant: "destructive", title: "Missing Information", description: "Please select a date and time." });
       return;
     }
 
-    const bookingData = {
-      ...data,
-      date: format(selectedDate, "yyyy-MM-dd"),
-      time: selectedTime,
-    };
-    
-    createBooking.mutate(bookingData, {
-      onSuccess: (booking) => {
-        setBookingId(booking.bookingId);
-        setCurrentStep(3); // Success
-      },
-      onError: (err: any) => {
-        toast({
-          variant: "destructive",
-          title: "Booking Failed",
-          description: err?.message || "Please try again.",
-        });
+    createBooking.mutate(
+      { ...data, date: format(selectedDate, "yyyy-MM-dd"), time: selectedTime },
+      {
+        onSuccess: (booking) => {
+          setBookingId(booking.bookingId);
+          setCurrentStep(3);
+        },
+        onError: (err: any) => {
+          toast({ variant: "destructive", title: "Booking Failed", description: err?.message || "Please try again." });
+        },
       }
-    });
+    );
   };
 
   const formatTimeDisplay = (time24: string): string => {
@@ -98,34 +87,61 @@ export default function Book() {
     return `${displayHour}:${minutes} ${period}`;
   };
 
+  const morningSlots = availability?.slots.filter(s => parseInt(s.split(":")[0]) < 12) ?? [];
+  const eveningSlots = availability?.slots.filter(s => parseInt(s.split(":")[0]) >= 12) ?? [];
+
   return (
     <div className="pt-12 pb-24 min-h-screen bg-background text-white">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-display font-bold text-center mb-8">Book Appointment</h1>
-        
-        <div className="flex justify-between mb-12 relative">
-          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -z-10 -translate-y-1/2" />
+      <div className="container mx-auto px-4 max-w-3xl">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-display font-bold mb-2">Book Appointment</h1>
+          <p className="text-muted-foreground text-sm">Select a time that works best for your healing session</p>
+        </div>
+
+        {/* Step Indicator */}
+        <div className="flex justify-between mb-10 relative">
+          <div className="absolute top-4 left-0 w-full h-0.5 bg-white/10 -z-10" />
           {STEPS.map((step, idx) => (
             <div key={idx} className="flex flex-col items-center gap-2 bg-background px-4">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 ${
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
                 currentStep > idx ? "bg-primary border-primary text-black" :
-                currentStep === idx ? "bg-background border-primary text-primary" :
+                currentStep === idx ? "bg-background border-primary text-primary shadow-lg shadow-primary/20" :
                 "bg-background border-white/20 text-muted-foreground"
               }`}>
                 {currentStep > idx ? <CheckCircle2 className="w-5 h-5" /> : idx + 1}
               </div>
-              <span className={`text-xs uppercase font-medium tracking-wider ${
-                currentStep >= idx ? "text-white" : "text-muted-foreground"
-              }`}>{step}</span>
+              <span className={`text-xs uppercase font-medium tracking-wider ${currentStep >= idx ? "text-white" : "text-muted-foreground"}`}>
+                {step}
+              </span>
             </div>
           ))}
         </div>
 
-        <div className="bg-card border border-white/5 rounded-2xl p-8 min-h-[400px]">
+        {/* Selected summary bar */}
+        {(selectedDate || selectedTime) && currentStep < 3 && (
+          <div className="flex gap-4 mb-6 px-4 py-3 bg-primary/10 border border-primary/20 rounded-xl text-sm flex-wrap">
+            {selectedDate && (
+              <span className="flex items-center gap-2 text-primary font-medium">
+                <Calendar className="w-4 h-4" />
+                {format(selectedDate, "MMMM d, yyyy")}
+              </span>
+            )}
+            {selectedTime && (
+              <span className="flex items-center gap-2 text-primary font-medium">
+                <Clock className="w-4 h-4" />
+                {formatTimeDisplay(selectedTime)}
+              </span>
+            )}
+          </div>
+        )}
+
+        <div className="bg-card border border-white/5 rounded-2xl p-6 sm:p-8 min-h-[420px]">
           <AnimatePresence mode="wait">
+            {/* Step 0 - Date */}
             {currentStep === 0 && (
               <motion.div key="step0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center">
-                <h2 className="text-2xl font-display font-bold mb-6">Select Date</h2>
+                <h2 className="text-2xl font-display font-bold mb-2">Select Date</h2>
+                <p className="text-muted-foreground text-sm mb-6">Clinic is open every day of the week</p>
                 <div className="bg-background rounded-xl p-4 border border-white/10">
                   <DayPicker
                     mode="single"
@@ -138,60 +154,163 @@ export default function Book() {
               </motion.div>
             )}
 
+            {/* Step 1 - Time */}
             {currentStep === 1 && (
               <motion.div key="step1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                 <div className="flex items-center gap-4 mb-6">
-                  <Button variant="ghost" size="icon" onClick={() => setCurrentStep(0)}><ChevronLeft /></Button>
+                <div className="flex items-center gap-3 mb-2">
+                  <Button variant="ghost" size="icon" onClick={() => setCurrentStep(0)} className="shrink-0">
+                    <ChevronLeft className="w-5 h-5" />
+                  </Button>
                   <h2 className="text-2xl font-display font-bold">Select Time</h2>
                 </div>
+                <p className="text-muted-foreground text-sm mb-6 ml-12">Select a time that works best for your healing session</p>
+
                 {isLoadingAvailability ? (
-                  <div className="flex justify-center p-12"><Loader2 className="animate-spin text-primary" /></div>
+                  <div className="flex justify-center p-12">
+                    <Loader2 className="animate-spin text-primary w-8 h-8" />
+                  </div>
+                ) : !availability?.slots.length ? (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <Clock className="w-10 h-10 mx-auto mb-3 opacity-40" />
+                    <p>No available slots for this date.</p>
+                    <p className="text-sm mt-1">Please select another date.</p>
+                    <Button variant="outline" className="mt-4" onClick={() => setCurrentStep(0)}>Choose Another Date</Button>
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                    {availability?.slots.map((slot) => (
-                      <button key={slot} onClick={() => handleTimeSelect(slot)} className="py-3 rounded-lg border border-white/10 hover:border-primary hover:bg-primary/10 text-sm">
-                        {formatTimeDisplay(slot)}
-                      </button>
-                    ))}
+                  <div className="space-y-6">
+                    {morningSlots.length > 0 && (
+                      <div>
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Morning Session</p>
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                          {morningSlots.map((slot) => (
+                            <button
+                              key={slot}
+                              onClick={() => handleTimeSelect(slot)}
+                              className="py-4 px-2 rounded-xl border border-white/10 hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95"
+                            >
+                              {formatTimeDisplay(slot)}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {eveningSlots.length > 0 && (
+                      <div>
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-3">Evening Session</p>
+                        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                          {eveningSlots.map((slot) => (
+                            <button
+                              key={slot}
+                              onClick={() => handleTimeSelect(slot)}
+                              className="py-4 px-2 rounded-xl border border-white/10 hover:border-primary hover:bg-primary/10 hover:scale-[1.02] text-sm font-medium transition-all duration-200 active:scale-95"
+                            >
+                              {formatTimeDisplay(slot)}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </motion.div>
             )}
 
+            {/* Step 2 - Details */}
             {currentStep === 2 && (
               <motion.div key="step2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <div className="flex items-center gap-4 mb-6">
-                  <Button variant="ghost" size="icon" onClick={() => setCurrentStep(1)}><ChevronLeft /></Button>
+                <div className="flex items-center gap-3 mb-6">
+                  <Button variant="ghost" size="icon" onClick={() => setCurrentStep(1)} className="shrink-0">
+                    <ChevronLeft className="w-5 h-5" />
+                  </Button>
                   <h2 className="text-2xl font-display font-bold">Your Details</h2>
                 </div>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField control={form.control} name="customerName" render={({ field }) => (
-                      <FormItem><FormLabel>Name</FormLabel><FormControl><Input {...field} className="bg-background border-white/10" /></FormControl><FormMessage /></FormItem>
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Your full name" className="bg-background border-white/10 h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )} />
                     <FormField control={form.control} name="customerEmail" render={({ field }) => (
-                      <FormItem><FormLabel>Email</FormLabel><FormControl><Input {...field} type="email" className="bg-background border-white/10" /></FormControl><FormMessage /></FormItem>
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="email" placeholder="your@email.com" className="bg-background border-white/10 h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )} />
                     <FormField control={form.control} name="customerPhone" render={({ field }) => (
-                      <FormItem><FormLabel>Phone</FormLabel><FormControl><Input {...field} className="bg-background border-white/10" /></FormControl><FormMessage /></FormItem>
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="+91 00000 00000" className="bg-background border-white/10 h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )} />
                     <FormField control={form.control} name="comments" render={({ field }) => (
-                      <FormItem><FormLabel>Comments</FormLabel><FormControl><Textarea {...field} className="bg-background border-white/10" /></FormControl><FormMessage /></FormItem>
+                      <FormItem>
+                        <FormLabel>Health Concern or Notes <span className="text-muted-foreground font-normal">(Optional)</span></FormLabel>
+                        <FormControl>
+                          <Textarea {...field} placeholder="Briefly describe your concern or any special requirements..." className="bg-background border-white/10 min-h-[100px]" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )} />
-                    <Button type="submit" variant="gold" className="w-full" size="lg" disabled={createBooking.isPending}>
-                      {createBooking.isPending ? "Confirming..." : "Confirm Booking"}
+                    <Button type="submit" variant="gold" className="w-full h-12 text-base shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.01] transition-all duration-300" size="lg" disabled={createBooking.isPending}>
+                      {createBooking.isPending ? (
+                        <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Confirming...</>
+                      ) : (
+                        "Confirm Booking"
+                      )}
                     </Button>
                   </form>
                 </Form>
               </motion.div>
             )}
 
+            {/* Step 3 - Success */}
             {currentStep === 3 && (
-              <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
-                <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-6" />
-                <h2 className="text-3xl font-display font-bold mb-4">Booking Confirmed!</h2>
-                <p className="text-muted-foreground mb-8">Booking ID: <span className="text-primary font-mono">{bookingId}</span></p>
-                <Button variant="outline" onClick={() => setLocation("/")}>Back to Home</Button>
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="text-center py-10"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200, damping: 12 }}
+                  className="w-24 h-24 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center mx-auto mb-6"
+                >
+                  <CheckCircle2 className="w-12 h-12 text-green-400" />
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+                  <h2 className="text-3xl font-display font-bold mb-3 text-white">Booking Confirmed!</h2>
+                  <p className="text-muted-foreground mb-4">A confirmation email has been sent to you.</p>
+
+                  <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-xl px-6 py-3 mb-8">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-muted-foreground text-sm">Booking ID:</span>
+                    <span className="text-primary font-mono font-bold">{bookingId}</span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button variant="gold" onClick={() => setLocation("/manage-booking")} className="rounded-full px-8">
+                      Manage Booking
+                    </Button>
+                    <Button variant="outline" onClick={() => setLocation("/")} className="rounded-full px-8 border-white/10 text-white">
+                      Back to Home
+                    </Button>
+                  </div>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

@@ -1,18 +1,54 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Star, Sparkles, Heart } from "lucide-react";
+import { ArrowRight, Star, Sparkles, Heart, Shield, Leaf, CheckCircle2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.12, duration: 0.7, ease: "easeOut" } }),
+};
+
+const healers = [
+  { name: "HR Jinas T N", title: "Certified Acupuncture Healer", initials: "JN" },
+  { name: "HR Aasiya Mansoor", title: "Certified Acupuncture Healer", initials: "AM" },
+];
+
+const programPhases = [
+  { phase: "Phase 1", duration: "11 Days", detail: "Continuous daily treatment sessions", color: "from-primary/30 to-primary/5" },
+  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "from-white/10 to-white/5", isBreak: true },
+  { phase: "Phase 2", duration: "5 Days", detail: "Continued targeted treatment", color: "from-primary/30 to-primary/5" },
+  { phase: "Break", duration: "6 Days", detail: "Rest & recovery period", color: "from-white/10 to-white/5", isBreak: true },
+  { phase: "Phase 3", duration: "5 Days", detail: "Final consolidation treatment", color: "from-primary/30 to-primary/5" },
+];
+
+const whyUs = [
+  { icon: <Shield className="w-6 h-6" />, title: "Root-Cause Healing", desc: "We address the source of your condition, not just the symptoms, for lasting relief." },
+  { icon: <Heart className="w-6 h-6" />, title: "Personalized Care", desc: "Every session is tailored specifically to your body, history, and healing goals." },
+  { icon: <Leaf className="w-6 h-6" />, title: "Natural & Non-Invasive", desc: "Safe, drug-free acupuncture that works with your body's innate healing intelligence." },
+];
+
+const services = [
+  {
+    title: "Pain Management",
+    desc: "Targeted acupuncture protocols for chronic and acute pain — joints, spine, headaches, and more. We work to eliminate the source of pain, not mask it.",
+    icon: "🩺",
+  },
+  {
+    title: "Acupuncture for All Conditions",
+    desc: "From stress and digestive issues to hormonal imbalances and immunity — acupuncture's scope covers the whole body. Each session is personalized to your unique condition.",
+    icon: "✦",
+  },
+];
 
 export default function Home() {
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
+      {/* ─── Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[#0a0a0a]">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/5 to-transparent opacity-50" />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[128px]" />
-          <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay" />
         </div>
 
         <div className="container relative z-10 px-4 text-center">
@@ -22,33 +58,33 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl mx-auto space-y-8"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               <span>Holistic Healing & Spiritual Growth</span>
             </div>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight">
+
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight">
               Restore Balance to <br />
               <span className="text-gold-gradient">Your Soul</span>
             </h1>
-            
+
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Experience profound healing and transformation at AJ Insta Heal. 
+              Experience profound healing and transformation at AJ Insta Heal.
               We guide you on a journey to inner peace, wellness, and spiritual awakening.
             </p>
-            
-            <div className="text-white italic text-base sm:text-lg md:text-xl border-l-4 border-primary pl-4 sm:pl-6 py-3 sm:py-4 bg-white/5 rounded-r-lg">
+
+            <div className="text-white italic text-base sm:text-lg border-l-4 border-primary pl-5 py-3 bg-white/5 rounded-r-lg text-left max-w-xl mx-auto">
               "We treat people, not diseases."
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link href="/book">
-                <Button variant="gold" size="lg" className="rounded-full">
+                <Button variant="gold" size="lg" className="rounded-full min-w-[180px] shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.03] transition-all duration-300">
                   Begin Your Journey
                 </Button>
               </Link>
               <Link href="/about">
-                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 text-white">
+                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 hover:border-primary/40 text-white min-w-[160px] transition-all duration-300">
                   Learn More
                 </Button>
               </Link>
@@ -57,21 +93,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Intro / About Teaser */}
-      <section className="py-24 bg-card/30 relative">
+      {/* ─── Philosophy ───────────────────────────────────────── */}
+      <section className="py-20 bg-card/30 relative">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-white/5 border border-white/10 group">
-                <img 
-                  src="/healing.png" 
+                <img
+                  src="/healing.png"
                   alt="Acupuncture healing therapy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white font-display text-2xl">
@@ -80,32 +117,30 @@ export default function Home() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               className="space-y-6"
             >
-              <h2 className="text-4xl font-display font-bold text-white">Why Choose AJ Insta Heal?</h2>
-              <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-4">
-                <p className="text-primary text-lg font-medium italic">
-                  "We treat people, not diseases."
-                </p>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Located in the historic town of Mattancherry, our sanctuary offers a unique blend of traditional healing practices and modern spiritual guidance. We believe that true healing comes from aligning the mind, body, and spirit.
+              <h2 className="text-4xl font-display font-bold text-white">Our Philosophy</h2>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                The best treatment addresses the root cause of a disease. Treating symptoms may offer temporary relief, but focusing on the underlying reason leads to a more complete cure.
               </p>
-              
-              <ul className="space-y-4 pt-4">
+              <p className="text-muted-foreground leading-relaxed">
+                Acupuncture is a powerful approach that targets the source, restoring balance to mind, body, and spirit. Located in the historic town of Mattancherry, our sanctuary blends ancient wisdom with compassionate, personalized care.
+              </p>
+
+              <ul className="space-y-3 pt-2">
                 {[
                   "Personalized healing sessions",
-                  "Expert spiritual guidance",
+                  "Root-cause focused treatment",
                   "Peaceful and safe environment",
-                  "Holistic approach to wellness"
+                  "Holistic approach to wellness",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-white/90">
-                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                       <Heart className="w-3 h-3 text-primary fill-current" />
                     </div>
                     {item}
@@ -114,7 +149,7 @@ export default function Home() {
               </ul>
 
               <Link href="/about">
-                <Button variant="link" className="px-0 text-primary mt-4">
+                <Button variant="link" className="px-0 text-primary mt-4 hover:gap-3 transition-all">
                   Learn more about us <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -123,43 +158,227 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-card border-y border-white/5">
+      {/* ─── Why Choose Us ────────────────────────────────────── */}
+      <section className="py-20 border-y border-white/5">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-display font-bold text-center text-white mb-16">Healing Stories</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah M.",
-                text: "The healing session was transformative. I felt a weight lift off my shoulders that I didn't know I was carrying.",
-                stars: 5
-              },
-              {
-                name: "Rahul K.",
-                text: "A truly peaceful experience. The guidance I received gave me clarity on my life path.",
-                stars: 5
-              },
-              {
-                name: "Emily R.",
-                text: "Professional, kind, and deeply intuitive. I highly recommend AJ Insta Heal to anyone seeking balance.",
-                stars: 5
-              }
-            ].map((review, i) => (
-              <motion.div 
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Why Choose AJ Insta Heal?</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              We combine time-tested healing practices with a deep commitment to your individual well-being.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {whyUs.map((item, i) => (
+              <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                className="bg-background/50 p-8 rounded-2xl border border-white/5"
+                className="bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300 group"
+              >
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary/20 transition-colors">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-display font-bold text-white mb-3">{item.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Services ─────────────────────────────────────────── */}
+      <section className="py-20 bg-card/20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Services</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Focused, effective treatments designed to restore your body's natural balance.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {services.map((svc, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              >
+                <div className="text-3xl mb-4">{svc.icon}</div>
+                <h3 className="text-2xl font-display font-bold text-white mb-3">{svc.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{svc.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Our Healers ──────────────────────────────────────── */}
+      <section className="py-20 border-y border-white/5">
+        <div className="container mx-auto px-4">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Healers</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Guided by certified practitioners devoted to your complete healing and well-being.
+            </p>
+          </motion.div>
+
+          <div className="flex flex-col sm:flex-row gap-8 justify-center max-w-2xl mx-auto">
+            {healers.map((healer, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="flex-1 bg-card/60 backdrop-blur-sm border border-white/10 rounded-2xl p-8 text-center hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 group"
+              >
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/20 flex items-center justify-center mx-auto mb-5 text-2xl font-display font-bold text-primary group-hover:from-primary/40 transition-all">
+                  {healer.initials}
+                </div>
+                <h3 className="text-xl font-display font-bold text-white mb-1">{healer.name}</h3>
+                <p className="text-primary text-sm font-medium">{healer.title}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Structured Healing Program ───────────────────────── */}
+      <section className="py-20 bg-card/20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Structured Healing Program</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Our treatment follows a proven three-phase protocol that gives your body time to heal deeply and restore lasting balance.
+            </p>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="relative">
+              <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent hidden sm:block" />
+              <div className="space-y-4">
+                {programPhases.map((phase, i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className={`relative flex items-center gap-6 p-6 rounded-2xl border transition-all duration-300 ${
+                      phase.isBreak
+                        ? "border-white/5 bg-white/5"
+                        : "border-primary/20 bg-gradient-to-r from-primary/10 to-transparent hover:border-primary/40"
+                    }`}
+                  >
+                    <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center shrink-0 text-center ${
+                      phase.isBreak ? "bg-white/10" : "bg-primary/20"
+                    }`}>
+                      <span className={`text-xs font-bold uppercase tracking-wider ${phase.isBreak ? "text-muted-foreground" : "text-primary"}`}>
+                        {phase.phase}
+                      </span>
+                    </div>
+                    <div>
+                      <p className={`text-xl font-display font-bold ${phase.isBreak ? "text-white/60" : "text-white"}`}>
+                        {phase.duration}
+                      </p>
+                      <p className="text-muted-foreground text-sm mt-0.5">{phase.detail}</p>
+                    </div>
+                    {!phase.isBreak && (
+                      <div className="ml-auto">
+                        <CheckCircle2 className="w-5 h-5 text-primary" />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-2xl text-center"
+            >
+              <p className="text-white/80 text-sm leading-relaxed">
+                Total Program: <span className="text-primary font-bold">21 treatment days</span> across 3 phases, structured to give your body the rest it needs between intensive healing sessions.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Testimonials ─────────────────────────────────────── */}
+      <section className="py-20 border-y border-white/5">
+        <div className="container mx-auto px-4">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-3xl font-display font-bold text-white mb-4">Healing Stories</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Real experiences from people whose lives have been transformed.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { name: "Sarah M.", text: "The healing session was transformative. I felt a weight lift off my shoulders that I didn't know I was carrying.", stars: 5 },
+              { name: "Rahul K.", text: "A truly peaceful experience. The guidance I received gave me clarity on my life path.", stars: 5 },
+              { name: "Emily R.", text: "Professional, kind, and deeply intuitive. I highly recommend AJ Insta Heal to anyone seeking balance.", stars: 5 },
+            ].map((review, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="bg-card/60 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex gap-1 text-primary mb-4">
-                  {[...Array(review.stars)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
+                  {[...Array(review.stars)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 fill-current" />
                   ))}
                 </div>
-                <p className="text-muted-foreground italic mb-6">"{review.text}"</p>
+                <p className="text-muted-foreground italic mb-6 leading-relaxed">"{review.text}"</p>
                 <p className="text-white font-medium">— {review.name}</p>
               </motion.div>
             ))}
@@ -167,19 +386,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ─── CTA ──────────────────────────────────────────────── */}
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]" />
         <div className="container mx-auto px-4 relative text-center">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Ready to Transform Your Life?</h2>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto mb-10">
-            Take the first step towards a balanced, peaceful, and empowered future.
-          </p>
-          <Link href="/book">
-            <Button variant="gold" size="lg" className="text-lg px-12 rounded-full shadow-2xl shadow-primary/20">
-              Book Your Appointment Now
-            </Button>
-          </Link>
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Ready to Transform Your Life?</h2>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+              Take the first step towards a balanced, peaceful, and empowered future.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Link href="/book">
+                <Button variant="gold" size="lg" className="text-lg px-12 rounded-full shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.03] transition-all duration-300">
+                  Book Your Appointment
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="lg" className="rounded-full border-white/20 hover:bg-white/5 text-white px-10">
+                  Contact Us <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

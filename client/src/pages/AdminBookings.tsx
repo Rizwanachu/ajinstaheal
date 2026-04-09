@@ -88,7 +88,7 @@ export default function AdminBookings() {
     <div className="pt-12 pb-24 min-h-screen bg-background text-white">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-display font-bold">Doctor Dashboard</h1>
+          <h1 className="text-3xl font-display font-bold">Healer Dashboard</h1>
           <Button variant="outline" size="sm" onClick={handleLogout}><LogOut className="mr-2 h-4 w-4" />Logout</Button>
         </div>
 
